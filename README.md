@@ -1,5 +1,5 @@
 # KeyHolder
-[![Release version](https://img.shields.io/github/release/Clipy/KeyHolder.svg)]()
+[![Release version](https://img.shields.io/github/release/Clipy/KeyHolder.svg)](https://github.com/Clipy/KeyHolder/releases)
 [![License: MIT](https://img.shields.io/github/license/Clipy/KeyHolder.svg)](https://github.com/Clipy/KeyHolder/blob/master/LICENSE)
 
 Record shortcuts TextField in macOS. Written by swift.
