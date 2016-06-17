@@ -1,0 +1,21 @@
+PODS:
+  - Magnet (0.0.1)
+
+DEPENDENCIES:
+  - Magnet (from `https://github.com/Clipy/Magnet.git`)
+
+EXTERNAL SOURCES:
+  Magnet:
+    :git: https://github.com/Clipy/Magnet.git
+
+CHECKOUT OPTIONS:
+  Magnet:
+    :commit: e0b54deabe82059a18891766359c20edf31778ff
+    :git: https://github.com/Clipy/Magnet.git
+
+SPEC CHECKSUMS:
+  Magnet: ddb0bae82981f2a243cbe2369de82ef1875ebf66
+
+PODFILE CHECKSUM: 2995db0df68f01e675f6904cd35a374fa68373a9
+
+COCOAPODS: 1.0.1
