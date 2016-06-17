@@ -1,0 +1,364 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		312C0FC51D13AA0300973348 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312C0FC41D13AA0300973348 /* AppDelegate.swift */; };
+		312C0FC71D13AA0300973348 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 312C0FC61D13AA0300973348 /* Assets.xcassets */; };
+		312C0FCA1D13AA0300973348 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 312C0FC81D13AA0300973348 /* MainMenu.xib */; };
+		312C0FFE1D13AA9700973348 /* KeyHolder.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 312C0FFB1D13AA8700973348 /* KeyHolder.framework */; };
+		312C0FFF1D13AA9700973348 /* KeyHolder.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 312C0FFB1D13AA8700973348 /* KeyHolder.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		312C0FFA1D13AA8700973348 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 312C0FF51D13AA8700973348 /* KeyHolder.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 312C0FDB1D13AA1F00973348;
+			remoteInfo = KeyHolder;
+		};
+		312C0FFC1D13AA8700973348 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 312C0FF51D13AA8700973348 /* KeyHolder.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 312C0FE51D13AA1F00973348;
+			remoteInfo = KeyHolderTests;
+		};
+		312C10001D13AA9700973348 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 312C0FF51D13AA8700973348 /* KeyHolder.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 312C0FDA1D13AA1F00973348;
+			remoteInfo = KeyHolder;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		312C10021D13AA9700973348 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				312C0FFF1D13AA9700973348 /* KeyHolder.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		312C0FC11D13AA0300973348 /* Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		312C0FC41D13AA0300973348 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		312C0FC61D13AA0300973348 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		312C0FC91D13AA0300973348 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		312C0FCB1D13AA0300973348 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		312C0FF51D13AA8700973348 /* KeyHolder.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = KeyHolder.xcodeproj; path = ../Lib/KeyHolder.xcodeproj; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		312C0FBE1D13AA0300973348 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				312C0FFE1D13AA9700973348 /* KeyHolder.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		312C0FB81D13AA0300973348 = {
+			isa = PBXGroup;
+			children = (
+				312C0FC31D13AA0300973348 /* Example */,
+				312C0FC21D13AA0300973348 /* Products */,
+				312C0FF51D13AA8700973348 /* KeyHolder.xcodeproj */,
+			);
+			sourceTree = "<group>";
+		};
+		312C0FC21D13AA0300973348 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				312C0FC11D13AA0300973348 /* Example.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		312C0FC31D13AA0300973348 /* Example */ = {
+			isa = PBXGroup;
+			children = (
+				312C0FC41D13AA0300973348 /* AppDelegate.swift */,
+				312C0FC61D13AA0300973348 /* Assets.xcassets */,
+				312C0FC81D13AA0300973348 /* MainMenu.xib */,
+				312C0FCB1D13AA0300973348 /* Info.plist */,
+			);
+			path = Example;
+			sourceTree = "<group>";
+		};
+		312C0FF61D13AA8700973348 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				312C0FFB1D13AA8700973348 /* KeyHolder.framework */,
+				312C0FFD1D13AA8700973348 /* KeyHolderTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		312C0FC01D13AA0300973348 /* Example */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 312C0FCE1D13AA0300973348 /* Build configuration list for PBXNativeTarget "Example" */;
+			buildPhases = (
+				312C0FBD1D13AA0300973348 /* Sources */,
+				312C0FBE1D13AA0300973348 /* Frameworks */,
+				312C0FBF1D13AA0300973348 /* Resources */,
+				312C10021D13AA9700973348 /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				312C10011D13AA9700973348 /* PBXTargetDependency */,
+			);
+			name = Example;
+			productName = Example;
+			productReference = 312C0FC11D13AA0300973348 /* Example.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		312C0FB91D13AA0300973348 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0730;
+				LastUpgradeCheck = 0730;
+				ORGANIZATIONNAME = "Shunsuke Furubayashi";
+				TargetAttributes = {
+					312C0FC01D13AA0300973348 = {
+						CreatedOnToolsVersion = 7.3.1;
+					};
+				};
+			};
+			buildConfigurationList = 312C0FBC1D13AA0300973348 /* Build configuration list for PBXProject "Example" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 312C0FB81D13AA0300973348;
+			productRefGroup = 312C0FC21D13AA0300973348 /* Products */;
+			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 312C0FF61D13AA8700973348 /* Products */;
+					ProjectRef = 312C0FF51D13AA8700973348 /* KeyHolder.xcodeproj */;
+				},
+			);
+			projectRoot = "";
+			targets = (
+				312C0FC01D13AA0300973348 /* Example */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		312C0FFB1D13AA8700973348 /* KeyHolder.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = KeyHolder.framework;
+			remoteRef = 312C0FFA1D13AA8700973348 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		312C0FFD1D13AA8700973348 /* KeyHolderTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = KeyHolderTests.xctest;
+			remoteRef = 312C0FFC1D13AA8700973348 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
+/* Begin PBXResourcesBuildPhase section */
+		312C0FBF1D13AA0300973348 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				312C0FC71D13AA0300973348 /* Assets.xcassets in Resources */,
+				312C0FCA1D13AA0300973348 /* MainMenu.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		312C0FBD1D13AA0300973348 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				312C0FC51D13AA0300973348 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		312C10011D13AA9700973348 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = KeyHolder;
+			targetProxy = 312C10001D13AA9700973348 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		312C0FC81D13AA0300973348 /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				312C0FC91D13AA0300973348 /* Base */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		312C0FCC1D13AA0300973348 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		312C0FCD1D13AA0300973348 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		312C0FCF1D13AA0300973348 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = Example/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.clipy-app.Example";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		312C0FD01D13AA0300973348 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = Example/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.clipy-app.Example";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		312C0FBC1D13AA0300973348 /* Build configuration list for PBXProject "Example" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				312C0FCC1D13AA0300973348 /* Debug */,
+				312C0FCD1D13AA0300973348 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		312C0FCE1D13AA0300973348 /* Build configuration list for PBXNativeTarget "Example" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				312C0FCF1D13AA0300973348 /* Debug */,
+				312C0FD01D13AA0300973348 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 312C0FB91D13AA0300973348 /* Project object */;
+}
