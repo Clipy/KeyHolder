@@ -91,9 +91,9 @@
 			children = (
 				312C0FC31D13AA0300973348 /* Example */,
 				312C0FC21D13AA0300973348 /* Products */,
-				312C0FF51D13AA8700973348 /* KeyHolder.xcodeproj */,
 				48ADF23BC4CDD3B5ECE60766 /* Pods */,
 				1A895CA26EEDB01109408FA4 /* Frameworks */,
+				312C0FF51D13AA8700973348 /* KeyHolder.xcodeproj */,
 			);
 			sourceTree = "<group>";
 		};

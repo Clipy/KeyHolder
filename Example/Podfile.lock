@@ -10,11 +10,11 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   Magnet:
-    :commit: e0b54deabe82059a18891766359c20edf31778ff
+    :commit: 1c83f22b8ebab87231cff8a2f6e20f0d9fb751a0
     :git: https://github.com/Clipy/Magnet.git
 
 SPEC CHECKSUMS:
-  Magnet: ddb0bae82981f2a243cbe2369de82ef1875ebf66
+  Magnet: 711c026672ffe518e611399cce128d602c8fd0a0
 
 PODFILE CHECKSUM: 2995db0df68f01e675f6904cd35a374fa68373a9
 
