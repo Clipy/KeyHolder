@@ -2,7 +2,10 @@
 [![Release version](https://img.shields.io/github/release/Clipy/KeyHolder.svg)](https://github.com/Clipy/KeyHolder/releases)
 [![License: MIT](https://img.shields.io/github/license/Clipy/KeyHolder.svg)](https://github.com/Clipy/KeyHolder/blob/master/LICENSE)
 
-Record shortcuts TextField in macOS. Written by swift.
+Record shortcuts in macOS, like Alfred App.
+
+<img src="./Screenshots/double_tap_shortcut.png" width="300">
+<img src="./Screenshots/normal_shortcut.png" width="300">
 
 ## Usage
 ```
@@ -13,6 +16,25 @@ pod 'KeyHolder', :git => 'https://github.com/Clipy/KeyHolder.git'
 ```
 
 ## Example
+Set default key combo.
+```
+let recordView = RecordView(frame: CGRect.zero)
+recordView.tintColor = NSColor(red: 0.164, green: 0.517, blue: 0.823, alpha: 1)
+let keyCombo = KeyCombo(doubledModifiers: .CommandKeyMask)
+recordView.keyCombo = keyCombo
+```
+
+Some delegate methods
+```
+func recordViewShouldBeginRecording(recordView: RecordView) -> Bool
+func recordView(recordView: RecordView, canRecordShortcut keyCombo: KeyCombo) -> Bool
+func recordViewDidClearShortcut(recordView: RecordView)
+func recordViewDidEndRecording(recordView: RecordView)
+```
+
+## Dependencies
+The source code is dependent on hotkey library.
+- [Magnet](https://github.com/Clipy/Magnet)
 
 ### Contributing
 1. Fork it ( https://github.com/Clipy/KeyHolder/fork )
