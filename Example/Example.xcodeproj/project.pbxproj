@@ -10,29 +10,28 @@
 		312C0FC51D13AA0300973348 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312C0FC41D13AA0300973348 /* AppDelegate.swift */; };
 		312C0FC71D13AA0300973348 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 312C0FC61D13AA0300973348 /* Assets.xcassets */; };
 		312C0FCA1D13AA0300973348 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 312C0FC81D13AA0300973348 /* MainMenu.xib */; };
-		312C0FFE1D13AA9700973348 /* KeyHolder.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 312C0FFB1D13AA8700973348 /* KeyHolder.framework */; };
-		312C0FFF1D13AA9700973348 /* KeyHolder.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 312C0FFB1D13AA8700973348 /* KeyHolder.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		D15D000983CC0E299106BE18 /* Pods_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F09A45307621F09AAD2246E /* Pods_Example.framework */; };
+		31FAEB771D13EB85008A6D6E /* KeyHolder.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 31FAEB711D13EB25008A6D6E /* KeyHolder.framework */; };
+		31FAEB781D13EB85008A6D6E /* KeyHolder.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 31FAEB711D13EB25008A6D6E /* KeyHolder.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		312C0FFA1D13AA8700973348 /* PBXContainerItemProxy */ = {
+		31FAEB701D13EB25008A6D6E /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 312C0FF51D13AA8700973348 /* KeyHolder.xcodeproj */;
+			containerPortal = 31FAEB6B1D13EB25008A6D6E /* KeyHolder.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 312C0FDB1D13AA1F00973348;
 			remoteInfo = KeyHolder;
 		};
-		312C0FFC1D13AA8700973348 /* PBXContainerItemProxy */ = {
+		31FAEB721D13EB25008A6D6E /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 312C0FF51D13AA8700973348 /* KeyHolder.xcodeproj */;
+			containerPortal = 31FAEB6B1D13EB25008A6D6E /* KeyHolder.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 312C0FE51D13AA1F00973348;
 			remoteInfo = KeyHolderTests;
 		};
-		312C10001D13AA9700973348 /* PBXContainerItemProxy */ = {
+		31FAEB791D13EB85008A6D6E /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 312C0FF51D13AA8700973348 /* KeyHolder.xcodeproj */;
+			containerPortal = 31FAEB6B1D13EB25008A6D6E /* KeyHolder.xcodeproj */;
 			proxyType = 1;
 			remoteGlobalIDString = 312C0FDA1D13AA1F00973348;
 			remoteInfo = KeyHolder;
@@ -46,7 +45,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				312C0FFF1D13AA9700973348 /* KeyHolder.framework in Embed Frameworks */,
+				31FAEB781D13EB85008A6D6E /* KeyHolder.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -54,15 +53,12 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		2841BF2CF99BBE0309295075 /* Pods-Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-Example/Pods-Example.release.xcconfig"; sourceTree = "<group>"; };
 		312C0FC11D13AA0300973348 /* Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		312C0FC41D13AA0300973348 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		312C0FC61D13AA0300973348 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		312C0FC91D13AA0300973348 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		312C0FCB1D13AA0300973348 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		312C0FF51D13AA8700973348 /* KeyHolder.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = KeyHolder.xcodeproj; path = ../Lib/KeyHolder.xcodeproj; sourceTree = "<group>"; };
-		64D8E8948B1E9549E59377C8 /* Pods-Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Example/Pods-Example.debug.xcconfig"; sourceTree = "<group>"; };
-		7F09A45307621F09AAD2246E /* Pods_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		31FAEB6B1D13EB25008A6D6E /* KeyHolder.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = KeyHolder.xcodeproj; path = ../Lib/KeyHolder.xcodeproj; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,30 +66,19 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				312C0FFE1D13AA9700973348 /* KeyHolder.framework in Frameworks */,
-				D15D000983CC0E299106BE18 /* Pods_Example.framework in Frameworks */,
+				31FAEB771D13EB85008A6D6E /* KeyHolder.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		1A895CA26EEDB01109408FA4 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				7F09A45307621F09AAD2246E /* Pods_Example.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		312C0FB81D13AA0300973348 = {
 			isa = PBXGroup;
 			children = (
 				312C0FC31D13AA0300973348 /* Example */,
 				312C0FC21D13AA0300973348 /* Products */,
-				48ADF23BC4CDD3B5ECE60766 /* Pods */,
-				1A895CA26EEDB01109408FA4 /* Frameworks */,
-				312C0FF51D13AA8700973348 /* KeyHolder.xcodeproj */,
+				31FAEB6B1D13EB25008A6D6E /* KeyHolder.xcodeproj */,
 			);
 			sourceTree = "<group>";
 		};
@@ -116,22 +101,13 @@
 			path = Example;
 			sourceTree = "<group>";
 		};
-		312C0FF61D13AA8700973348 /* Products */ = {
+		31FAEB6C1D13EB25008A6D6E /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				312C0FFB1D13AA8700973348 /* KeyHolder.framework */,
-				312C0FFD1D13AA8700973348 /* KeyHolderTests.xctest */,
+				31FAEB711D13EB25008A6D6E /* KeyHolder.framework */,
+				31FAEB731D13EB25008A6D6E /* KeyHolderTests.xctest */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		48ADF23BC4CDD3B5ECE60766 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				64D8E8948B1E9549E59377C8 /* Pods-Example.debug.xcconfig */,
-				2841BF2CF99BBE0309295075 /* Pods-Example.release.xcconfig */,
-			);
-			name = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -141,18 +117,15 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 312C0FCE1D13AA0300973348 /* Build configuration list for PBXNativeTarget "Example" */;
 			buildPhases = (
-				4C6218380A256DBFC64A0D66 /* [CP] Check Pods Manifest.lock */,
 				312C0FBD1D13AA0300973348 /* Sources */,
 				312C0FBE1D13AA0300973348 /* Frameworks */,
 				312C0FBF1D13AA0300973348 /* Resources */,
 				312C10021D13AA9700973348 /* Embed Frameworks */,
-				95488DE63C949B3694937489 /* [CP] Embed Pods Frameworks */,
-				B10EC74263276D078C74FDFE /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				312C10011D13AA9700973348 /* PBXTargetDependency */,
+				31FAEB7A1D13EB85008A6D6E /* PBXTargetDependency */,
 			);
 			name = Example;
 			productName = Example;
@@ -187,8 +160,8 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = 312C0FF61D13AA8700973348 /* Products */;
-					ProjectRef = 312C0FF51D13AA8700973348 /* KeyHolder.xcodeproj */;
+					ProductGroup = 31FAEB6C1D13EB25008A6D6E /* Products */;
+					ProjectRef = 31FAEB6B1D13EB25008A6D6E /* KeyHolder.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -199,18 +172,18 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		312C0FFB1D13AA8700973348 /* KeyHolder.framework */ = {
+		31FAEB711D13EB25008A6D6E /* KeyHolder.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
 			path = KeyHolder.framework;
-			remoteRef = 312C0FFA1D13AA8700973348 /* PBXContainerItemProxy */;
+			remoteRef = 31FAEB701D13EB25008A6D6E /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		312C0FFD1D13AA8700973348 /* KeyHolderTests.xctest */ = {
+		31FAEB731D13EB25008A6D6E /* KeyHolderTests.xctest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
 			path = KeyHolderTests.xctest;
-			remoteRef = 312C0FFC1D13AA8700973348 /* PBXContainerItemProxy */;
+			remoteRef = 31FAEB721D13EB25008A6D6E /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -227,54 +200,6 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
-/* Begin PBXShellScriptBuildPhase section */
-		4C6218380A256DBFC64A0D66 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		95488DE63C949B3694937489 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Example/Pods-Example-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		B10EC74263276D078C74FDFE /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Example/Pods-Example-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
-
 /* Begin PBXSourcesBuildPhase section */
 		312C0FBD1D13AA0300973348 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -287,10 +212,10 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		312C10011D13AA9700973348 /* PBXTargetDependency */ = {
+		31FAEB7A1D13EB85008A6D6E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = KeyHolder;
-			targetProxy = 312C10001D13AA9700973348 /* PBXContainerItemProxy */;
+			targetProxy = 31FAEB791D13EB85008A6D6E /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -390,10 +315,10 @@
 		};
 		312C0FCF1D13AA0300973348 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 64D8E8948B1E9549E59377C8 /* Pods-Example.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				INFOPLIST_FILE = Example/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.clipy-app.Example";
@@ -403,10 +328,10 @@
 		};
 		312C0FD01D13AA0300973348 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2841BF2CF99BBE0309295075 /* Pods-Example.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				INFOPLIST_FILE = Example/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.clipy-app.Example";

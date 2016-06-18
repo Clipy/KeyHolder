@@ -1,0 +1,3 @@
+[submodule "Carthage/Checkouts/Magnet"]
+	path = Carthage/Checkouts/Magnet
+	url = https://github.com/Clipy/Magnet.git
