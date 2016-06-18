@@ -1,5 +1,5 @@
 # KeyHolder
-[![Release version](https://img.shields.io/github/release/Clipy/KeyHolder.svg)](https://github.com/Clipy/KeyHolder/releases)
+[![Release version](https://img.shields.io/github/release/Clipy/KeyHolder.svg)](https://github.com/Clipy/KeyHolder/releases/latest)
 [![License: MIT](https://img.shields.io/github/license/Clipy/KeyHolder.svg)](https://github.com/Clipy/KeyHolder/blob/master/LICENSE)
 
 Record shortcuts in macOS, like Alfred App.
@@ -12,7 +12,7 @@ Record shortcuts in macOS, like Alfred App.
 platform :osx, '10.9'
 use_frameworks!
 
-pod 'KeyHolder', :git => 'https://github.com/Clipy/KeyHolder.git'
+pod 'KeyHolder'
 ```
 
 ## Example
