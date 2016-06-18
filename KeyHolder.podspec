@@ -8,5 +8,5 @@ Pod::Spec.new do |s|
   s.source       = { :git => "https://github.com/Clipy/KeyHolder.git", :tag => "v#{s.version}" }
   s.platform     = :osx, '10.9'
   s.source_files = 'Lib/KeyHolder/*.swift'
-  # TODO: Dependency Magnet
+  s.dependency 'Magnet', '0.0.2'
 end
