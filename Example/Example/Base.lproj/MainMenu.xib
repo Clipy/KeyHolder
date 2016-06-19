@@ -688,6 +688,12 @@
                                 <real key="value" value="17"/>
                             </userDefinedRuntimeAttribute>
                             <userDefinedRuntimeAttribute type="boolean" keyPath="showsClearButton" value="YES"/>
+                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                <real key="value" value="1"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                <color key="value" red="0.51372549020000002" green="0.82745098039999998" blue="0.61960784310000006" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
                     </customView>
                     <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vka-Hg-Btu">
