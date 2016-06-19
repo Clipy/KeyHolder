@@ -26,8 +26,15 @@ public protocol RecordViewDelegate: class {
     @IBInspectable public var tintColor: NSColor = NSColor.blueColor() {
         didSet { needsDisplay = true }
     }
+    @IBInspectable public var borderColor: NSColor = NSColor.whiteColor() {
+        didSet { layer?.borderColor = borderColor.CGColor }
+    }
+    @IBInspectable public var borderWidth: CGFloat = 0 {
+        didSet { layer?.borderWidth = borderWidth }
+    }
     @IBInspectable public var cornerRadius: CGFloat = 0 {
         didSet {
+            layer?.cornerRadius = cornerRadius
             needsDisplay = true
             noteFocusRingMaskChanged()
         }
@@ -93,6 +100,7 @@ public protocol RecordViewDelegate: class {
     }
 
     private func initView() {
+        wantsLayer = true
         clearButton.bezelStyle = .ThickerSquareBezelStyle
         clearButton.setButtonType(.MomentaryChangeButton)
         clearButton.bordered = false
