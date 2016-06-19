@@ -100,7 +100,6 @@ public protocol RecordViewDelegate: class {
     }
 
     private func initView() {
-        wantsLayer = true
         clearButton.bezelStyle = .ThickerSquareBezelStyle
         clearButton.setButtonType(.MomentaryChangeButton)
         clearButton.bordered = false
@@ -127,6 +126,12 @@ public protocol RecordViewDelegate: class {
     private func drawBackground(dirtyRect: NSRect) {
         backgroundColor.setFill()
         NSBezierPath(roundedRect: bounds, xRadius: cornerRadius, yRadius: cornerRadius).fill()
+
+        let rect = NSRect(x: borderWidth / 2, y: borderWidth / 2, width: bounds.width - borderWidth, height: bounds.height - borderWidth)
+        let path = NSBezierPath(roundedRect: rect, xRadius: cornerRadius, yRadius: cornerRadius)
+        path.lineWidth = borderWidth
+        borderColor.set()
+        path.stroke()
     }
 
     private func drawModifiers(dirtyRect: NSRect) {
