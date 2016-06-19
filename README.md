@@ -4,8 +4,8 @@
 
 Record shortcuts in macOS, like Alfred App.
 
-<img src="./Screenshots/double_tap_shortcut.png" width="300">
-<img src="./Screenshots/normal_shortcut.png" width="300">
+<img src="https://github.com/Clipy/KeyHolder/blob/master/Screenshots/double_tap_shortcut.png?raw=true" width="300">
+<img src="https://github.com/Clipy/KeyHolder/blob/master/Screenshots/normal_shortcut.png?raw=true" width="300">
 
 ## Usage
 ```
@@ -35,6 +35,13 @@ func recordViewDidEndRecording(recordView: RecordView)
 ## Dependencies
 The source code is dependent on hotkey library.
 - [Magnet](https://github.com/Clipy/Magnet)
+
+## Hot to Build
+1. Move to the project root directory
+2. Install dependency library with `carthage` or `submodule` 
+ - `carthage checkout --use-submodules`
+4. Open `KeyHolder.xcworkspace` on Xcode.
+5. build.
 
 ### Contributing
 1. Fork it ( https://github.com/Clipy/KeyHolder/fork )
