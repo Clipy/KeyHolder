@@ -12,7 +12,9 @@ final class Util {
     static func bundleImage(name: String) -> NSImage? {
         var bundle = NSBundle(identifier: "com.clipy-app.KeyHolder")
         if bundle == nil {
-            bundle = NSBundle(identifier: "org.cocoapods.KeyHolder")
+            let frameworkBundle = NSBundle(forClass: RecordView.self)
+            let path = frameworkBundle.pathForResource("KeyHolder", ofType: "bundle")!
+            bundle = NSBundle(path: path)
         }
         guard let resourceBundle = bundle else { return nil }
         return resourceBundle.imageForResource(name)
