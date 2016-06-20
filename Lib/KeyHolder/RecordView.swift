@@ -12,8 +12,9 @@ import Magnet
 
 public protocol RecordViewDelegate: class {
     func recordViewShouldBeginRecording(recordView: RecordView) -> Bool
-    func recordView(recordView: RecordView, canRecordShortcut keyCombo: KeyCombo) -> Bool
+    func recordView(recordView: RecordView, canRecordKeyCombo keyCombo: KeyCombo) -> Bool
     func recordViewDidClearShortcut(recordView: RecordView)
+    func recordView(recordView: RecordView, didChangeKeyCombo keyCombo: KeyCombo)
     func recordViewDidEndRecording(recordView: RecordView)
 }
 
@@ -306,8 +307,9 @@ public extension RecordView {
         if let keyCode = KeyCode(rawValue: keyCodeInt) where recording && validateModifiers(inputModifiers) {
             let modifiers = KeyTransformer.cocoaToCarbonFlags(theEvent.modifierFlags)
             if let keyCombo = KeyCombo(keyCode: keyCode, carbonModifiers: modifiers) {
-                if delegate?.recordView(self, canRecordShortcut: keyCombo) ?? true {
+                if delegate?.recordView(self, canRecordKeyCombo: keyCombo) ?? true {
                     self.keyCombo = keyCombo
+                    delegate?.recordView(self, didChangeKeyCombo: keyCombo)
                     endRecording()
                     return true
                 }
@@ -315,8 +317,9 @@ public extension RecordView {
             return false
         } else if let keyCode = KeyCode(rawValue: keyCodeInt) where recording && KeyTransformer.containsFunctionKey(keyCodeInt) {
             if let keyCombo = KeyCombo(keyCode: keyCode, carbonModifiers: 0) {
-                if delegate?.recordView(self, canRecordShortcut: keyCombo) ?? true {
+                if delegate?.recordView(self, canRecordKeyCombo: keyCombo) ?? true {
                     self.keyCombo = keyCombo
+                    delegate?.recordView(self, didChangeKeyCombo: keyCombo)
                     endRecording()
                     return true
                 }
@@ -354,10 +357,12 @@ public extension RecordView {
                 (doubleTapModifier.contains(.AlternateKeyMask) && altTapped) {
 
                 if let keyCombo = KeyCombo(doubledCocoaModifiers: doubleTapModifier) {
-                    if delegate?.recordView(self, canRecordShortcut: keyCombo) ?? true {
+                    if delegate?.recordView(self, canRecordKeyCombo: keyCombo) ?? true {
                         self.keyCombo = keyCombo
+                        delegate?.recordView(self, didChangeKeyCombo: keyCombo)
                         endRecording()
-                    }                }
+                    }
+                }
                 doubleTapModifier = NSEventModifierFlags(rawValue: 0)
             } else {
                 if commandTapped {
