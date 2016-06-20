@@ -18,7 +18,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     func applicationDidFinishLaunching(aNotification: NSNotification) {
         recordView.tintColor = NSColor(red: 0.164, green: 0.517, blue: 0.823, alpha: 1)
-        let keyCombo = KeyCombo(doubledModifiers: .CommandKeyMask)
+        let keyCombo = KeyCombo(doubledCocoaModifiers: .CommandKeyMask)
         recordView.keyCombo = keyCombo
         recordView.delegate = self
 
@@ -27,7 +27,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     func applicationWillTerminate(aNotification: NSNotification) {
-        HotKeyCenter.sharedCenter.unregisterHotKey("KeyHolderExample")
+        HotKeyCenter.sharedCenter.unregisterAll()
     }
 
     func hotkeyCalled() {
@@ -42,11 +42,8 @@ extension AppDelegate: RecordViewDelegate {
         return true
     }
 
-    func recordView(recordView: RecordView, canRecordShortcut keyCombo: KeyCombo) -> Bool {
+    func recordView(recordView: RecordView, canRecordKeyCombo keyCombo: KeyCombo) -> Bool {
         // You can customize validation
-        HotKeyCenter.sharedCenter.unregisterHotKey("KeyHolderExample")
-        let hotKey = HotKey(identifier: "KeyHolderExample", keyCombo: keyCombo, target: self, action: #selector(AppDelegate.hotkeyCalled))
-        hotKey.register()
         return true
     }
 
@@ -57,5 +54,11 @@ extension AppDelegate: RecordViewDelegate {
 
     func recordViewDidEndRecording(recordView: RecordView) {
         print("end recording")
+    }
+
+    func recordView(recordView: RecordView, didChangeKeyCombo keyCombo: KeyCombo) {
+        HotKeyCenter.sharedCenter.unregisterHotKey("KeyHolderExample")
+        let hotKey = HotKey(identifier: "KeyHolderExample", keyCombo: keyCombo, target: self, action: #selector(AppDelegate.hotkeyCalled))
+        hotKey.register()
     }
 }

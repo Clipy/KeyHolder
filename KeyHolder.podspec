@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "KeyHolder"
-  s.version      = "0.0.3"
+  s.version      = "0.1.0"
   s.summary      = "Record shortcuts in macOS, like Alfred app."
   s.license      = { :type => 'MIT', :file => 'LICENSE' }
   s.homepage     = "https://github.com/Clipy/KeyHolder"
@@ -10,5 +10,5 @@ Pod::Spec.new do |s|
   s.source_files = 'Lib/KeyHolder/*.swift'
   s.resource_bundles = { 'KeyHolder' => ['Lib/KeyHolder/Resources/*.png'] }
   s.frameworks   = 'Carbon', 'Cocoa'
-  s.dependency 'Magnet', '0.0.2'
+  s.dependency 'Magnet', '0.1.1'
 end
