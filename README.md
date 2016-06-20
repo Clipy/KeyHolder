@@ -1,6 +1,8 @@
 # KeyHolder
 [![Release version](https://img.shields.io/github/release/Clipy/KeyHolder.svg)](https://github.com/Clipy/KeyHolder/releases/latest)
 [![License: MIT](https://img.shields.io/github/license/Clipy/KeyHolder.svg)](https://github.com/Clipy/KeyHolder/blob/master/LICENSE)
+[![Version](https://img.shields.io/cocoapods/v/KeyHolder.svg)](http://cocoadocs.org/docsets/KeyHolder)
+[![Platform](https://img.shields.io/cocoapods/p/KeyHolder.svg)](http://cocoadocs.org/docsets/KeyHolder)
 
 Record shortcuts in macOS, like Alfred App.
 
@@ -38,8 +40,8 @@ The source code is dependent on hotkey library.
 
 ## Hot to Build
 1. Move to the project root directory
-2. Install dependency library with `carthage` or `submodule` 
- - `carthage checkout --use-submodules`
+2. Install dependency library with `carthage` or `git submodule`
+ - `carthage checkout --use-submodules` or `git submodule init && git submodule update`
 4. Open `KeyHolder.xcworkspace` on Xcode.
 5. build.
 
