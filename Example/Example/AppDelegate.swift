@@ -42,11 +42,8 @@ extension AppDelegate: RecordViewDelegate {
         return true
     }
 
-    func recordView(recordView: RecordView, canRecordShortcut keyCombo: KeyCombo) -> Bool {
+    func recordView(recordView: RecordView, canRecordKeyCombo keyCombo: KeyCombo) -> Bool {
         // You can customize validation
-        HotKeyCenter.sharedCenter.unregisterHotKey("KeyHolderExample")
-        let hotKey = HotKey(identifier: "KeyHolderExample", keyCombo: keyCombo, target: self, action: #selector(AppDelegate.hotkeyCalled))
-        hotKey.register()
         return true
     }
 
@@ -57,5 +54,11 @@ extension AppDelegate: RecordViewDelegate {
 
     func recordViewDidEndRecording(recordView: RecordView) {
         print("end recording")
+    }
+
+    func recordView(recordView: RecordView, didChangeKeyCombo keyCombo: KeyCombo) {
+        HotKeyCenter.sharedCenter.unregisterHotKey("KeyHolderExample")
+        let hotKey = HotKey(identifier: "KeyHolderExample", keyCombo: keyCombo, target: self, action: #selector(AppDelegate.hotkeyCalled))
+        hotKey.register()
     }
 }
