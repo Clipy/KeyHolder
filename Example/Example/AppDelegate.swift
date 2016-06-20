@@ -18,7 +18,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     func applicationDidFinishLaunching(aNotification: NSNotification) {
         recordView.tintColor = NSColor(red: 0.164, green: 0.517, blue: 0.823, alpha: 1)
-        let keyCombo = KeyCombo(doubledModifiers: .CommandKeyMask)
+        let keyCombo = KeyCombo(doubledCocoaModifiers: .CommandKeyMask)
         recordView.keyCombo = keyCombo
         recordView.delegate = self
 
@@ -27,7 +27,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     func applicationWillTerminate(aNotification: NSNotification) {
-        HotKeyCenter.sharedCenter.unregisterHotKey("KeyHolderExample")
+        HotKeyCenter.sharedCenter.unregisterAll()
     }
 
     func hotkeyCalled() {

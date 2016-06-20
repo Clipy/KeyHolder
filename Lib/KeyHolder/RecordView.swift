@@ -154,7 +154,7 @@ public protocol RecordViewDelegate: class {
         let minX = (fontSize * 4) + (marginX * 2)
         let width = bounds.width - minX - (marginX * 2) - clearSize
         if width <= 0 { return }
-        let text = (keyCombo.doubledModifiers) ? "double tap" : KeyTransformer.keyCodeToString(keyCombo.keyCode)
+        let text = (keyCombo.doubledModifiers) ? "double tap" : KeyCode(rawValue: keyCombo.keyCode)?.stringValue ?? ""
         text.drawInRect(NSRect(x: minX, y: marginY, width: width, height: bounds.height), withAttributes: keyCodeTextAttributes())
     }
 
@@ -225,6 +225,10 @@ public extension RecordView {
 
     public func endRecording() {
         if !recording { return }
+
+        inputModifiers = NSEventModifierFlags(rawValue: 0)
+        doubleTapModifier = NSEventModifierFlags(rawValue: 0)
+        multiModifiers = false
 
         willChangeValueForKey("recording")
         recording = false
@@ -298,10 +302,10 @@ public extension RecordView {
         if !enabled { return false }
         if window?.firstResponder != self { return false }
 
-        if recording && validateModifiers(inputModifiers) {
-            let keyCode = theEvent.keyCode
+        let keyCodeInt = Int(theEvent.keyCode)
+        if let keyCode = KeyCode(rawValue: keyCodeInt) where recording && validateModifiers(inputModifiers) {
             let modifiers = KeyTransformer.cocoaToCarbonFlags(theEvent.modifierFlags)
-            if let keyCombo = KeyCombo(keyCode: Int(keyCode), carbonModifiers: modifiers) {
+            if let keyCombo = KeyCombo(keyCode: keyCode, carbonModifiers: modifiers) {
                 if delegate?.recordView(self, canRecordShortcut: keyCombo) ?? true {
                     self.keyCombo = keyCombo
                     endRecording()
@@ -309,9 +313,8 @@ public extension RecordView {
                 }
             }
             return false
-        } else if recording && KeyTransformer.containsFunctionKey(Int(theEvent.keyCode)) {
-            let keyCode = theEvent.keyCode
-            if let keyCombo = KeyCombo(keyCode: Int(keyCode), carbonModifiers: 0) {
+        } else if let keyCode = KeyCode(rawValue: keyCodeInt) where recording && KeyTransformer.containsFunctionKey(keyCodeInt) {
+            if let keyCombo = KeyCombo(keyCode: keyCode, carbonModifiers: 0) {
                 if delegate?.recordView(self, canRecordShortcut: keyCombo) ?? true {
                     self.keyCombo = keyCombo
                     endRecording()
@@ -350,7 +353,7 @@ public extension RecordView {
                 (doubleTapModifier.contains(.ControlKeyMask) && controlTapped) ||
                 (doubleTapModifier.contains(.AlternateKeyMask) && altTapped) {
 
-                if let keyCombo = KeyCombo(doubledModifiers: doubleTapModifier) {
+                if let keyCombo = KeyCombo(doubledCocoaModifiers: doubleTapModifier) {
                     if delegate?.recordView(self, canRecordShortcut: keyCombo) ?? true {
                         self.keyCombo = keyCombo
                         endRecording()
