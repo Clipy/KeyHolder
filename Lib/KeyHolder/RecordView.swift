@@ -155,7 +155,7 @@ public protocol RecordViewDelegate: class {
         let minX = (fontSize * 4) + (marginX * 2)
         let width = bounds.width - minX - (marginX * 2) - clearSize
         if width <= 0 { return }
-        let text = (keyCombo.doubledModifiers) ? "double tap" : KeyCode(rawValue: keyCombo.keyCode)?.stringValue ?? ""
+        let text = (keyCombo.doubledModifiers) ? "double tap" : keyCombo.characters
         text.drawInRect(NSRect(x: minX, y: marginY, width: width, height: bounds.height), withAttributes: keyCodeTextAttributes())
     }
 
@@ -304,9 +304,9 @@ public extension RecordView {
         if window?.firstResponder != self { return false }
 
         let keyCodeInt = Int(theEvent.keyCode)
-        if let keyCode = KeyCode(rawValue: keyCodeInt) where recording && validateModifiers(inputModifiers) {
+        if recording && validateModifiers(inputModifiers) {
             let modifiers = KeyTransformer.cocoaToCarbonFlags(theEvent.modifierFlags)
-            if let keyCombo = KeyCombo(keyCode: keyCode, carbonModifiers: modifiers) {
+            if let keyCombo = KeyCombo(keyCode: keyCodeInt, carbonModifiers: modifiers) {
                 if delegate?.recordView(self, canRecordKeyCombo: keyCombo) ?? true {
                     self.keyCombo = keyCombo
                     delegate?.recordView(self, didChangeKeyCombo: keyCombo)
@@ -315,8 +315,8 @@ public extension RecordView {
                 }
             }
             return false
-        } else if let keyCode = KeyCode(rawValue: keyCodeInt) where recording && KeyTransformer.containsFunctionKey(keyCodeInt) {
-            if let keyCombo = KeyCombo(keyCode: keyCode, carbonModifiers: 0) {
+        } else if recording && KeyTransformer.containsFunctionKey(keyCodeInt) {
+            if let keyCombo = KeyCombo(keyCode: keyCodeInt, carbonModifiers: 0) {
                 if delegate?.recordView(self, canRecordKeyCombo: keyCombo) ?? true {
                     self.keyCombo = keyCombo
                     delegate?.recordView(self, didChangeKeyCombo: keyCombo)
