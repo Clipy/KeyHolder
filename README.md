@@ -1,6 +1,7 @@
 # KeyHolder
 [![Release version](https://img.shields.io/github/release/Clipy/KeyHolder.svg)](https://github.com/Clipy/KeyHolder/releases/latest)
 [![License: MIT](https://img.shields.io/github/license/Clipy/KeyHolder.svg)](https://github.com/Clipy/KeyHolder/blob/master/LICENSE)
+[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 [![Version](https://img.shields.io/cocoapods/v/KeyHolder.svg)](http://cocoadocs.org/docsets/KeyHolder)
 [![Platform](https://img.shields.io/cocoapods/p/KeyHolder.svg)](http://cocoadocs.org/docsets/KeyHolder)
 
