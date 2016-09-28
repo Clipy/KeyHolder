@@ -9,6 +9,11 @@ Record shortcuts in macOS, like Alfred App.
 <img src="https://github.com/Clipy/KeyHolder/blob/master/Screenshots/double_tap_shortcut.png?raw=true" width="300">
 <img src="https://github.com/Clipy/KeyHolder/blob/master/Screenshots/normal_shortcut.png?raw=true" width="300">
 
+## Requirements
+- macOS 10.9+
+- Xcode 8.0+
+- Swift 3.0+
+
 ## Usage
 ```
 platform :osx, '10.9'
@@ -22,16 +27,16 @@ Set default key combo.
 ```
 let recordView = RecordView(frame: CGRect.zero)
 recordView.tintColor = NSColor(red: 0.164, green: 0.517, blue: 0.823, alpha: 1)
-let keyCombo = KeyCombo(doubledModifiers: .CommandKeyMask)
+let keyCombo = KeyCombo(doubledModifiers: .command)
 recordView.keyCombo = keyCombo
 ```
 
 Some delegate methods
 ```
-func recordViewShouldBeginRecording(recordView: RecordView) -> Bool
-func recordView(recordView: RecordView, canRecordShortcut keyCombo: KeyCombo) -> Bool
-func recordViewDidClearShortcut(recordView: RecordView)
-func recordViewDidEndRecording(recordView: RecordView)
+func recordViewShouldBeginRecording(_ recordView: RecordView) -> Bool
+func recordView(_ recordView: RecordView, canRecordShortcut keyCombo: KeyCombo) -> Bool
+func recordViewDidClearShortcut(_ recordView: RecordView)
+func recordViewDidEndRecording(_ recordView: RecordView)
 ```
 
 ## Dependencies
