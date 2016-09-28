@@ -16,11 +16,18 @@ Record shortcuts in macOS, like Alfred App.
 - Swift 3.0+
 
 ## Usage
+### CocoaPods
 ```
 platform :osx, '10.9'
 use_frameworks!
 
 pod 'KeyHolder'
+```
+
+### Carthage
+```
+github "Clipy/KeyHolder"
+github "Clipy/Magnet"
 ```
 
 ## Example
