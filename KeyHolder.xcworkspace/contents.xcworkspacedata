@@ -7,7 +7,4 @@
    <FileRef
       location = "group:Lib/KeyHolder.xcodeproj">
    </FileRef>
-   <FileRef
-      location = "group:Carthage/Checkouts/Magnet/Lib/Magnet.xcodeproj">
-   </FileRef>
 </Workspace>
