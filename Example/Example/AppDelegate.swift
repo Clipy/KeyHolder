@@ -30,7 +30,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         HotKeyCenter.shared.unregisterAll()
     }
 
-    func hotkeyCalled() {
+    @objc func hotkeyCalled() {
         print("HotKey called!!!!")
     }
 
