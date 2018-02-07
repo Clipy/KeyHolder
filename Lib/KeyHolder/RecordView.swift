@@ -248,8 +248,6 @@ public protocol RecordViewDelegate: class {
                 }
             }
             return false
-        } else if Int(theEvent.keyCode) == kVK_Space {
-            return beginRecording()
         }
         return false
     }
