@@ -49,10 +49,10 @@ public protocol RecordViewDelegate: class {
     open var keyCombo: KeyCombo? {
         didSet { needsDisplay = true }
     }
-    open var enabled = true {
+    open var isEnabled = true {
         didSet {
             needsDisplay = true
-            if !enabled { endRecording() }
+            if !isEnabled { endRecording() }
             noteFocusRingMaskChanged()
         }
     }
@@ -86,7 +86,7 @@ public protocol RecordViewDelegate: class {
         return true
     }
     open override var focusRingMaskBounds: NSRect {
-        return (enabled && window?.firstResponder == self) ? bounds : NSRect.zero
+        return (isEnabled && window?.firstResponder == self) ? bounds : NSRect.zero
     }
 
     // MARK: - Initialize
@@ -112,7 +112,7 @@ public protocol RecordViewDelegate: class {
 
     // MARK: - Draw
     open override func drawFocusRingMask() {
-        if enabled && window?.firstResponder == self {
+        if isEnabled && window?.firstResponder == self {
             NSBezierPath(roundedRect: bounds, xRadius: cornerRadius, yRadius: cornerRadius).fill()
         }
     }
@@ -173,7 +173,7 @@ public protocol RecordViewDelegate: class {
 
     // MARK: - NSResponder
     override open var acceptsFirstResponder: Bool {
-        return enabled
+        return isEnabled
     }
 
     override open var canBecomeKeyView: Bool {
@@ -194,7 +194,7 @@ public protocol RecordViewDelegate: class {
     }
 
     override open func mouseDown(with theEvent: NSEvent) {
-        if !enabled {
+        if !isEnabled {
             super.mouseDown(with: theEvent)
             return
         }
@@ -212,7 +212,7 @@ public protocol RecordViewDelegate: class {
     }
 
     override open func performKeyEquivalent(with theEvent: NSEvent) -> Bool {
-        if !enabled { return false }
+        if !isEnabled { return false }
         if window?.firstResponder != self { return false }
 
         let keyCodeInt = Int(theEvent.keyCode)
@@ -313,7 +313,7 @@ private extension RecordView {
         paragraphStyle.lineBreakMode = NSParagraphStyle.LineBreakMode.byTruncatingTail
         paragraphStyle.baseWritingDirection = NSWritingDirection.leftToRight
         let textColor: NSColor
-        if !enabled {
+        if !isEnabled {
             textColor = .disabledControlTextColor
         } else if modifiers.contains(checkModifier) {
             textColor = tintColor
@@ -338,7 +338,7 @@ private extension RecordView {
 // MARK: - Recording
 public extension RecordView {
     public func beginRecording() -> Bool {
-        if !enabled { return false }
+        if !isEnabled { return false }
         if recording { return true }
 
         needsDisplay = true
