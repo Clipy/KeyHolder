@@ -51,10 +51,10 @@ func recordViewDidEndRecording(_ recordView: RecordView)
 The source code is dependent on hotkey library.
 - [Magnet](https://github.com/Clipy/Magnet)
 
-## Hot to Build
+## How to Build
 1. Move to the project root directory
 2. Install dependency library with `carthage` or `git submodule`
- - `carthage checkout --use-submodules` or `git submodule init && git submodule update`
+3. `carthage checkout --use-submodules` or `git submodule init && git submodule update`
 4. Open `KeyHolder.xcworkspace` on Xcode.
 5. build.
 
