@@ -391,11 +391,6 @@ public extension RecordView {
         delegate?.recordViewDidClearShortcut(self)
         window?.makeFirstResponder(self)
     }
-
-    @objc public func clearAndEndRecording() {
-        clear()
-        endRecording()
-    }
 }
 
 // MARK: - Modifiers
