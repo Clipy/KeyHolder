@@ -389,6 +389,7 @@ public extension RecordView {
         inputModifiers = NSEvent.ModifierFlags(rawValue: 0)
         needsDisplay = true
         delegate?.recordViewDidClearShortcut(self)
+        window?.makeFirstResponder(self)
     }
 
     @objc public func clearAndEndRecording() {
