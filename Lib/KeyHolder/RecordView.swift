@@ -44,6 +44,7 @@ public protocol RecordViewDelegate: class {
         didSet { needsDisplay = true }
     }
 
+    open var delegateStrong : RecordViewDelegate? { didSet { delegate = delegateStrong } }
     open weak var delegate: RecordViewDelegate?
     open var recording = false
     open var keyCombo: KeyCombo? {
@@ -106,7 +107,7 @@ public protocol RecordViewDelegate: class {
         clearButton.isBordered = false
         clearButton.title = ""
         clearButton.target = self
-        clearButton.action = #selector(RecordView.clearAndEndRecording)
+        clearButton.action = #selector(RecordView.clear)
         addSubview(clearButton)
     }
 
@@ -183,6 +184,11 @@ public protocol RecordViewDelegate: class {
     override open var needsPanelToBecomeKey: Bool {
         return true
     }
+    
+    override open func becomeFirstResponder() -> Bool {
+        guard isEnabled else { return false }
+        return beginRecording()
+    }
 
     override open func resignFirstResponder() -> Bool {
         endRecording()
@@ -192,7 +198,7 @@ public protocol RecordViewDelegate: class {
     override open func acceptsFirstMouse(for theEvent: NSEvent?) -> Bool {
         return true
     }
-
+    
     override open func mouseDown(with theEvent: NSEvent) {
         if !isEnabled {
             super.mouseDown(with: theEvent)
@@ -378,7 +384,7 @@ public extension RecordView {
 
 // MARK: - Clear Keys
 public extension RecordView {
-    public func clear() {
+    @objc public func clear() {
         keyCombo = nil
         inputModifiers = NSEvent.ModifierFlags(rawValue: 0)
         needsDisplay = true
