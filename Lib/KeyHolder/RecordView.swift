@@ -18,13 +18,26 @@ public protocol RecordViewDelegate: class {
     func recordViewDidEndRecording(_ recordView: RecordView)
 }
 
+/// macOS 10.14 polyfill
+extension NSColor {
+	static let controlAccentPolyfill: NSColor = {
+		if #available(macOS 10.14, *) {
+			/// TODO: Enable this again when compiling against the 10.14 SDK
+			// return NSColor.controlAccent
+			return NSColor(red: 0.10, green: 0.47, blue: 0.98, alpha: 1)
+		} else {
+			return NSColor(red: 0.10, green: 0.47, blue: 0.98, alpha: 1)
+		}
+	}()
+}
+
 @IBDesignable open class RecordView: NSView {
 
     // MARK: - Properties
     @IBInspectable open var backgroundColor: NSColor = .white {
         didSet { needsDisplay = true }
     }
-    @IBInspectable open var tintColor: NSColor = .blue {
+    @IBInspectable open var tintColor: NSColor = .controlAccentPolyfill {
         didSet { needsDisplay = true }
     }
     @IBInspectable open var borderColor: NSColor = .white {
