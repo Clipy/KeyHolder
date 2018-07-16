@@ -32,7 +32,7 @@ github "Clipy/Magnet"
 
 ## Example
 Set default key combo.
-```
+```swift
 let recordView = RecordView(frame: CGRect.zero)
 recordView.tintColor = NSColor(red: 0.164, green: 0.517, blue: 0.823, alpha: 1)
 let keyCombo = KeyCombo(doubledModifiers: .command)
@@ -40,7 +40,7 @@ recordView.keyCombo = keyCombo
 ```
 
 Some delegate methods
-```
+```swift
 func recordViewShouldBeginRecording(_ recordView: RecordView) -> Bool
 func recordView(_ recordView: RecordView, canRecordShortcut keyCombo: KeyCombo) -> Bool
 func recordViewDidClearShortcut(_ recordView: RecordView)
