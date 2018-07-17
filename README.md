@@ -18,9 +18,6 @@ Record shortcuts in macOS, like Alfred App.
 ## Usage
 ### CocoaPods
 ```
-platform :osx, '10.9'
-use_frameworks!
-
 pod 'KeyHolder'
 ```
 
