@@ -44,6 +44,15 @@ func recordViewDidClearShortcut(_ recordView: RecordView)
 func recordViewDidEndRecording(_ recordView: RecordView)
 ```
 
+Or you can use closures.
+```swift
+let recordView = RecordView(frame: CGRect.zero)
+recordView.didChange = { keyCombo in
+    guard let keyCombo = keyCombo else { return } // Clear shortcut
+    // Changed new shortcut
+}
+```
+
 ## Dependencies
 The source code is dependent on hotkey library.
 - [Magnet](https://github.com/Clipy/Magnet)

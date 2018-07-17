@@ -62,6 +62,7 @@ extension NSColor {
     }
 
     open weak var delegate: RecordViewDelegate?
+    open var didChange: ((KeyCombo?) -> Void)?
     open var recording = false
     open var keyCombo: KeyCombo? {
         didSet { needsDisplay = true }
@@ -238,6 +239,7 @@ extension NSColor {
             if let keyCombo = KeyCombo(keyCode: keyCodeInt, carbonModifiers: modifiers) {
                 if delegate?.recordView(self, canRecordKeyCombo: keyCombo) ?? true {
                     self.keyCombo = keyCombo
+                    didChange?(keyCombo)
                     delegate?.recordView(self, didChangeKeyCombo: keyCombo)
                     endRecording()
                     return true
@@ -248,6 +250,7 @@ extension NSColor {
             if let keyCombo = KeyCombo(keyCode: keyCodeInt, carbonModifiers: 0) {
                 if delegate?.recordView(self, canRecordKeyCombo: keyCombo) ?? true {
                     self.keyCombo = keyCombo
+                    didChange?(keyCombo)
                     delegate?.recordView(self, didChangeKeyCombo: keyCombo)
                     endRecording()
                     return true
@@ -288,6 +291,7 @@ extension NSColor {
                 if let keyCombo = KeyCombo(doubledCocoaModifiers: doubleTapModifier) {
                     if delegate?.recordView(self, canRecordKeyCombo: keyCombo) ?? true {
                         self.keyCombo = keyCombo
+                        didChange?(keyCombo)
                         delegate?.recordView(self, didChangeKeyCombo: keyCombo)
                         endRecording()
                     }
@@ -399,6 +403,7 @@ public extension RecordView {
         keyCombo = nil
         inputModifiers = NSEvent.ModifierFlags(rawValue: 0)
         needsDisplay = true
+        didChange?(nil)
         delegate?.recordViewDidClearShortcut(self)
     }
 
