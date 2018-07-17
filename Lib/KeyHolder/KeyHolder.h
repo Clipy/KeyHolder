@@ -1,9 +1,13 @@
 //
 //  KeyHolder.h
-//  KeyHolder
 //
-//  Created by 古林　俊祐　 on 2016/06/17.
-//  Copyright © 2016年 Shunsuke Furubayashi. All rights reserved.
+//  KeyHolder
+//  GitHub: https://github.com/clipy
+//  HP: https://clipy-app.com
+//
+//  Created by Econa77 on 2016/06/17.
+//
+//  Copyright © 2016-2018 Clipy Project.
 //
 
 #import <Cocoa/Cocoa.h>
