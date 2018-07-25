@@ -225,6 +225,10 @@ extension NSColor {
         }
     }
 
+    open override func cancelOperation(_ sender: Any?) {
+        endRecording()
+    }
+
     override open func keyDown(with theEvent: NSEvent) {
         if !performKeyEquivalent(with: theEvent) { super.keyDown(with: theEvent) }
     }
