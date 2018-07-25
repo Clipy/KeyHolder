@@ -63,7 +63,7 @@ extension NSColor {
 
     open weak var delegate: RecordViewDelegate?
     open var didChange: ((KeyCombo?) -> Void)?
-    open var recording = false
+    open var isRecording = false
     open var keyCombo: KeyCombo? {
         didSet { needsDisplay = true }
     }
@@ -218,7 +218,7 @@ extension NSColor {
         }
 
         let locationInView = convert(theEvent.locationInWindow, from: nil)
-        if mouse(locationInView, in: bounds) && !recording {
+        if mouse(locationInView, in: bounds) && !isRecording {
             _ = beginRecording()
         } else {
             super.mouseDown(with: theEvent)
@@ -234,7 +234,7 @@ extension NSColor {
         if window?.firstResponder != self { return false }
 
         let keyCodeInt = Int(theEvent.keyCode)
-        if recording && validateModifiers(inputModifiers) {
+        if isRecording && validateModifiers(inputModifiers) {
             let modifiers = KeyTransformer.carbonFlags(from: theEvent.modifierFlags)
             if let keyCombo = KeyCombo(keyCode: keyCodeInt, carbonModifiers: modifiers) {
                 if delegate?.recordView(self, canRecordKeyCombo: keyCombo) ?? true {
@@ -246,7 +246,7 @@ extension NSColor {
                 }
             }
             return false
-        } else if recording && KeyTransformer.containsFunctionKey(keyCodeInt) {
+        } else if isRecording && KeyTransformer.containsFunctionKey(keyCodeInt) {
             if let keyCombo = KeyCombo(keyCode: keyCodeInt, carbonModifiers: 0) {
                 if delegate?.recordView(self, canRecordKeyCombo: keyCombo) ?? true {
                     self.keyCombo = keyCombo
@@ -264,7 +264,7 @@ extension NSColor {
     }
 
     override open func flagsChanged(with theEvent: NSEvent) {
-        if recording {
+        if isRecording {
             inputModifiers = theEvent.modifierFlags
             needsDisplay = true
 
@@ -360,7 +360,7 @@ private extension RecordView {
 public extension RecordView {
     public func beginRecording() -> Bool {
         if !isEnabled { return false }
-        if recording { return true }
+        if isRecording { return true }
 
         needsDisplay = true
 
@@ -370,7 +370,7 @@ public extension RecordView {
         }
 
         willChangeValue(forKey: "recording")
-        recording = true
+        isRecording = true
         didChangeValue(forKey: "recording")
 
         updateTrackingAreas()
@@ -379,14 +379,14 @@ public extension RecordView {
     }
 
     public func endRecording() {
-        if !recording { return }
+        if !isRecording { return }
 
         inputModifiers = NSEvent.ModifierFlags(rawValue: 0)
         doubleTapModifier = NSEvent.ModifierFlags(rawValue: 0)
         multiModifiers = false
 
         willChangeValue(forKey: "recording")
-        recording = false
+        isRecording = false
         didChangeValue(forKey: "recording")
 
         updateTrackingAreas()
