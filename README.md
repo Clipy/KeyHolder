@@ -11,9 +11,9 @@ Record shortcuts in macOS, like Alfred App.
 <img src="https://github.com/Clipy/KeyHolder/blob/master/Screenshots/normal_shortcut.png?raw=true" width="300">
 
 ## Requirements
-- macOS 10.9+
-- Xcode 9.0+
-- Swift 4.0+
+- macOS 10.10+
+- Xcode 9.4+
+- Swift 4.1+
 
 ## Usage
 ### CocoaPods
