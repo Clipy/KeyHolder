@@ -17,6 +17,6 @@ final class Util {
             bundle = Bundle(path: path)
         }
         guard let resourceBundle = bundle else { return nil }
-        return resourceBundle.image(forResource: NSImage.Name(rawValue: name))
+        return resourceBundle.image(forResource: NSImage.Name(name))
     }
 }

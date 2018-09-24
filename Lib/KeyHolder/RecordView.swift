@@ -206,7 +206,7 @@ public protocol RecordViewDelegate: class {
         }
 
         let locationInView = convert(theEvent.locationInWindow, from: nil)
-        if mouse(locationInView, in: bounds) && !recording {
+        if isMousePoint(locationInView, in: bounds) && !recording {
             _ = beginRecording()
         } else {
             super.mouseDown(with: theEvent)
@@ -313,10 +313,10 @@ public protocol RecordViewDelegate: class {
 
 // MARK: - Text Attributes
 private extension RecordView {
-    func modifierTextAttributes(_ modifiers: NSEvent.ModifierFlags, checkModifier: NSEvent.ModifierFlags) -> [NSAttributedStringKey: Any] {
+    func modifierTextAttributes(_ modifiers: NSEvent.ModifierFlags, checkModifier: NSEvent.ModifierFlags) -> [NSAttributedString.Key: Any] {
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.alignment = NSTextAlignment.center
-        paragraphStyle.lineBreakMode = NSParagraphStyle.LineBreakMode.byTruncatingTail
+        paragraphStyle.lineBreakMode = NSLineBreakMode.byTruncatingTail
         paragraphStyle.baseWritingDirection = NSWritingDirection.leftToRight
         let textColor: NSColor
         if !isEnabled {
@@ -331,9 +331,9 @@ private extension RecordView {
                 .paragraphStyle: paragraphStyle]
     }
 
-    func keyCodeTextAttributes() -> [NSAttributedStringKey: Any] {
+    func keyCodeTextAttributes() -> [NSAttributedString.Key: Any] {
         let paragraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.lineBreakMode = NSParagraphStyle.LineBreakMode.byTruncatingTail
+        paragraphStyle.lineBreakMode = NSLineBreakMode.byTruncatingTail
         paragraphStyle.baseWritingDirection = NSWritingDirection.leftToRight
         return [.font: NSFont.systemFont(ofSize: floor(fontSize)),
                 .foregroundColor: tintColor,
