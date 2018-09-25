@@ -12,4 +12,5 @@ Pod::Spec.new do |s|
   s.frameworks   = 'Carbon', 'Cocoa'
   s.dependency 'Magnet', '~> 2.1'
   s.dependency 'RxSwift', '~> 4.3.1'
+  s.dependency 'RxCocoa', '~> 4.3.1'
 end
