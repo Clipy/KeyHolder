@@ -12,8 +12,8 @@ Record shortcuts in macOS, like Alfred App.
 
 ## Requirements
 - macOS 10.10+
-- Xcode 9.4+
-- Swift 4.1+
+- Xcode 10.0+
+- Swift 4.2+
 
 ## Usage
 ### CocoaPods
