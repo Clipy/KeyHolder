@@ -22,19 +22,6 @@ public protocol RecordViewDelegate: class {
     func recordViewDidEndRecording(_ recordView: RecordView)
 }
 
-/// macOS 10.14 polyfill
-extension NSColor {
-	static let controlAccentPolyfill: NSColor = {
-		if #available(macOS 10.14, *) {
-			/// TODO: Enable this again when compiling against the 10.14 SDK
-			// return NSColor.controlAccent
-			return NSColor(red: 0.10, green: 0.47, blue: 0.98, alpha: 1)
-		} else {
-			return NSColor(red: 0.10, green: 0.47, blue: 0.98, alpha: 1)
-		}
-	}()
-}
-
 @IBDesignable open class RecordView: NSView {
 
     // MARK: - Properties
@@ -218,7 +205,7 @@ extension NSColor {
         }
 
         let locationInView = convert(theEvent.locationInWindow, from: nil)
-        if mouse(locationInView, in: bounds) && !isRecording {
+        if isMousePoint(locationInView, in: bounds) && !isRecording {
             _ = beginRecording()
         } else {
             super.mouseDown(with: theEvent)
@@ -277,7 +264,7 @@ extension NSColor {
             let shiftTapped = inputModifiers.contains(.shift)
             let controlTapped = inputModifiers.contains(.control)
             let optionTapped = inputModifiers.contains(.option)
-            let totalHash = commandTapped.hashValue + optionTapped.hashValue + shiftTapped.hashValue + controlTapped.hashValue
+            let totalHash = commandTapped.intValue + optionTapped.intValue + shiftTapped.intValue + controlTapped.intValue
             if totalHash > 1 {
                 multiModifiers = true
                 return
@@ -332,11 +319,11 @@ extension NSColor {
 
 // MARK: - Text Attributes
 private extension RecordView {
-    func modifierTextAttributes(_ modifiers: NSEvent.ModifierFlags, checkModifier: NSEvent.ModifierFlags) -> [NSAttributedStringKey: Any] {
+    func modifierTextAttributes(_ modifiers: NSEvent.ModifierFlags, checkModifier: NSEvent.ModifierFlags) -> [NSAttributedString.Key: Any] {
         let paragraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.alignment = NSTextAlignment.center
-        paragraphStyle.lineBreakMode = NSParagraphStyle.LineBreakMode.byTruncatingTail
-        paragraphStyle.baseWritingDirection = NSWritingDirection.leftToRight
+        paragraphStyle.alignment = .center
+        paragraphStyle.lineBreakMode = .byTruncatingTail
+        paragraphStyle.baseWritingDirection = .leftToRight
         let textColor: NSColor
         if !isEnabled {
             textColor = .disabledControlTextColor
@@ -350,10 +337,10 @@ private extension RecordView {
                 .paragraphStyle: paragraphStyle]
     }
 
-    func keyCodeTextAttributes() -> [NSAttributedStringKey: Any] {
+    func keyCodeTextAttributes() -> [NSAttributedString.Key: Any] {
         let paragraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.lineBreakMode = NSParagraphStyle.LineBreakMode.byTruncatingTail
-        paragraphStyle.baseWritingDirection = NSWritingDirection.leftToRight
+        paragraphStyle.lineBreakMode = .byTruncatingTail
+        paragraphStyle.baseWritingDirection = .leftToRight
         return [.font: NSFont.systemFont(ofSize: floor(fontSize)),
                 .foregroundColor: tintColor,
                 .paragraphStyle: paragraphStyle]
@@ -423,4 +410,23 @@ private extension RecordView {
         guard let modifiers = modifiers else { return false }
         return KeyTransformer.carbonFlags(from: modifiers) != 0
     }
+}
+
+// MARK: - Bool Extension
+private extension Bool {
+    var intValue: Int {
+        return NSNumber(value: self).intValue
+    }
+}
+
+// MARK: - NSColor Extensio
+// nmacOS 10.14 polyfill
+private extension NSColor {
+    static let controlAccentPolyfill: NSColor = {
+        if #available(macOS 10.14, *) {
+            return NSColor.controlAccentColor
+        } else {
+            return NSColor(red: 0.10, green: 0.47, blue: 0.98, alpha: 1)
+        }
+    }()
 }
