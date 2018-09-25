@@ -9,6 +9,6 @@ Pod::Spec.new do |s|
   s.platform     = :osx, '10.9'
   s.source_files = 'Lib/KeyHolder/*.swift'
   s.resource_bundles = { 'KeyHolder' => ['Lib/KeyHolder/Resources/*.png'] }
-  s.frameworks   = 'Carbon', 'Cocoa'
+  s.frameworks   = 'Carbon', 'Cocoa', 'RxSwift'
   s.dependency 'Magnet', '~> 2.1'
 end
