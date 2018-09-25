@@ -9,7 +9,6 @@
 import Cocoa
 import RxSwift
 import RxCocoa
-import KeyHolder
 import Magnet
 
 #if os(macOS)
