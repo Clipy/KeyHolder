@@ -25,13 +25,13 @@ public protocol RecordViewDelegate: class {
 @IBDesignable open class RecordView: NSView {
 
     // MARK: - Properties
-    @IBInspectable open var backgroundColor: NSColor = .white {
+    @IBInspectable open var backgroundColor: NSColor = .controlColor {
         didSet { needsDisplay = true }
     }
     @IBInspectable open var tintColor: NSColor = .controlAccentPolyfill {
         didSet { needsDisplay = true }
     }
-    @IBInspectable open var borderColor: NSColor = .white {
+    @IBInspectable open var borderColor: NSColor = .controlColor {
         didSet { layer?.borderColor = borderColor.cgColor }
     }
     @IBInspectable open var borderWidth: CGFloat = 0 {
