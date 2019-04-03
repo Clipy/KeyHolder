@@ -204,7 +204,6 @@ public protocol RecordViewDelegate: class {
     }
 
     override open func resignFirstResponder() -> Bool {
-        endRecording()
         isRecording = false
         return super.resignFirstResponder()
     }
