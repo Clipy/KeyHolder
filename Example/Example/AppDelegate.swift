@@ -64,5 +64,10 @@ extension AppDelegate: RecordViewDelegate {
         HotKeyCenter.shared.unregisterHotKey(with: "KeyHolderExample")
         let hotKey = HotKey(identifier: "KeyHolderExample", keyCombo: keyCombo, target: self, action: #selector(AppDelegate.hotkeyCalled))
         hotKey.register()
+
+        // You should select the next responder (like Xcode does) so that
+        // the user can set the shortcut and then press ⌘W or ⌘Q to interact
+        // with the window afterwards instead of setting these as shortcuts.
+        window.makeFirstResponder(nil)
     }
 }

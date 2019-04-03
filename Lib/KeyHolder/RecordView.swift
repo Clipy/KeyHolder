@@ -50,7 +50,15 @@ public protocol RecordViewDelegate: class {
 
     open weak var delegate: RecordViewDelegate?
     open var didChange: ((KeyCombo?) -> Void)?
-    @objc dynamic open var isRecording = false
+    @objc dynamic open var isRecording = false {
+        didSet {
+            if recording {
+                beginRecording()
+            } else {
+                endRecording()
+            }
+        }
+    }
     open var keyCombo: KeyCombo? {
         didSet { needsDisplay = true }
     }
@@ -189,27 +197,19 @@ public protocol RecordViewDelegate: class {
         return true
     }
 
+    open override func becomeFirstResponder() -> Bool {
+        isRecording = super.becomeFirstResponder()
+        return isRecording
+    }
+
     override open func resignFirstResponder() -> Bool {
         endRecording()
+        isRecording = false
         return super.resignFirstResponder()
     }
 
     override open func acceptsFirstMouse(for theEvent: NSEvent?) -> Bool {
         return true
-    }
-
-    override open func mouseDown(with theEvent: NSEvent) {
-        if !isEnabled {
-            super.mouseDown(with: theEvent)
-            return
-        }
-
-        let locationInView = convert(theEvent.locationInWindow, from: nil)
-        if isMousePoint(locationInView, in: bounds) && !isRecording {
-            _ = beginRecording()
-        } else {
-            super.mouseDown(with: theEvent)
-        }
     }
 
     open override func cancelOperation(_ sender: Any?) {
@@ -232,7 +232,6 @@ public protocol RecordViewDelegate: class {
                     self.keyCombo = keyCombo
                     didChange?(keyCombo)
                     delegate?.recordView(self, didChangeKeyCombo: keyCombo)
-                    endRecording()
                     return true
                 }
             }
@@ -243,7 +242,6 @@ public protocol RecordViewDelegate: class {
                     self.keyCombo = keyCombo
                     didChange?(keyCombo)
                     delegate?.recordView(self, didChangeKeyCombo: keyCombo)
-                    endRecording()
                     return true
                 }
             }
@@ -282,7 +280,6 @@ public protocol RecordViewDelegate: class {
                         self.keyCombo = keyCombo
                         didChange?(keyCombo)
                         delegate?.recordView(self, didChangeKeyCombo: keyCombo)
-                        endRecording()
                     }
                 }
                 doubleTapModifier = NSEvent.ModifierFlags(rawValue: 0)
@@ -347,18 +344,18 @@ private extension RecordView {
 
 // MARK: - Recording
 public extension RecordView {
+    @discardableResult
     public func beginRecording() -> Bool {
         if !isEnabled { return false }
         if isRecording { return true }
 
         needsDisplay = true
 
-        if let delegate = delegate , !delegate.recordViewShouldBeginRecording(self) {
+        if let delegate = delegate, !delegate.recordViewShouldBeginRecording(self) {
             NSSound.beep()
             return false
         }
 
-        isRecording = true
         updateTrackingAreas()
 
         return true
@@ -370,7 +367,6 @@ public extension RecordView {
         inputModifiers = NSEvent.ModifierFlags(rawValue: 0)
         doubleTapModifier = NSEvent.ModifierFlags(rawValue: 0)
         multiModifiers = false
-        isRecording = false
         updateTrackingAreas()
         needsDisplay = true
 
