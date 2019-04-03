@@ -52,7 +52,7 @@ public protocol RecordViewDelegate: class {
     open var didChange: ((KeyCombo?) -> Void)?
     @objc dynamic open var isRecording = false {
         didSet {
-            if recording {
+            if isRecording && isEnabled {
                 beginRecording()
             } else {
                 endRecording()
@@ -66,7 +66,7 @@ public protocol RecordViewDelegate: class {
     open var isEnabled = true {
         didSet {
             needsDisplay = true
-            if !isEnabled { endRecording() }
+            if !isEnabled { isRecording = false }
             noteFocusRingMaskChanged()
         }
     }
