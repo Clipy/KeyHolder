@@ -56,6 +56,7 @@ public protocol RecordViewDelegate: class {
                 beginRecording()
             } else {
                 endRecording()
+                resetCachedModifiers()
             }
         }
     }
@@ -251,63 +252,66 @@ public protocol RecordViewDelegate: class {
     }
 
     override open func flagsChanged(with theEvent: NSEvent) {
-        if isRecording {
-            inputModifiers = theEvent.modifierFlags
-            needsDisplay = true
-
-            // For dobule tap
-            let commandTapped = inputModifiers.contains(.command)
-            let shiftTapped = inputModifiers.contains(.shift)
-            let controlTapped = inputModifiers.contains(.control)
-            let optionTapped = inputModifiers.contains(.option)
-            let totalHash = commandTapped.intValue + optionTapped.intValue + shiftTapped.intValue + controlTapped.intValue
-            if totalHash > 1 {
-                multiModifiers = true
-                return
-            }
-            if multiModifiers || totalHash == 0 {
-                multiModifiers = false
-                return
-            }
-
-            if (doubleTapModifier.contains(.command) && commandTapped) ||
-                (doubleTapModifier.contains(.shift) && shiftTapped)    ||
-                (doubleTapModifier.contains(.control) && controlTapped) ||
-                (doubleTapModifier.contains(.option) && optionTapped) {
-
-                if let keyCombo = KeyCombo(doubledCocoaModifiers: doubleTapModifier) {
-                    if delegate?.recordView(self, canRecordKeyCombo: keyCombo) ?? true {
-                        self.keyCombo = keyCombo
-                        didChange?(keyCombo)
-                        delegate?.recordView(self, didChangeKeyCombo: keyCombo)
-                    }
-                }
-                doubleTapModifier = NSEvent.ModifierFlags(rawValue: 0)
-            } else {
-                if commandTapped {
-                    doubleTapModifier = .command
-                } else if shiftTapped {
-                    doubleTapModifier = .shift
-                } else if controlTapped {
-                    doubleTapModifier = .control
-                } else if optionTapped {
-                    doubleTapModifier = .option
-                } else {
-                    doubleTapModifier = NSEvent.ModifierFlags(rawValue: 0)
-                }
-            }
-
-            // Clean Flag
-            let delay = 0.3 * Double(NSEC_PER_SEC)
-            let time  = DispatchTime.now() + Double(Int64(delay)) / Double(NSEC_PER_SEC)
-            DispatchQueue.main.asyncAfter(deadline: time, execute: { [weak self] in
-                self?.doubleTapModifier = NSEvent.ModifierFlags(rawValue: 0)
-            })
-        } else {
-            inputModifiers = NSEvent.ModifierFlags(rawValue: 0)
-        }
-        
+        updateCachedModifiers(event: theEvent)
         super.flagsChanged(with: theEvent)
+    }
+
+    private func updateCachedModifiers(event: NSEvent) {
+        guard isRecording else {
+            inputModifiers = NSEvent.ModifierFlags(rawValue: 0)
+            return
+        }
+
+        inputModifiers = event.modifierFlags
+        needsDisplay = true
+
+        // For dobule tap
+        let commandTapped = inputModifiers.contains(.command)
+        let shiftTapped = inputModifiers.contains(.shift)
+        let controlTapped = inputModifiers.contains(.control)
+        let optionTapped = inputModifiers.contains(.option)
+        let totalHash = commandTapped.hashValue + optionTapped.hashValue + shiftTapped.hashValue + controlTapped.hashValue
+        if totalHash > 1 {
+            multiModifiers = true
+            return
+        }
+        if multiModifiers || totalHash == 0 {
+            multiModifiers = false
+            return
+        }
+
+        if (doubleTapModifier.contains(.command) && commandTapped) ||
+            (doubleTapModifier.contains(.shift) && shiftTapped)    ||
+            (doubleTapModifier.contains(.control) && controlTapped) ||
+            (doubleTapModifier.contains(.option) && optionTapped) {
+
+            if let keyCombo = KeyCombo(doubledCocoaModifiers: doubleTapModifier) {
+                if delegate?.recordView(self, canRecordKeyCombo: keyCombo) ?? true {
+                    self.keyCombo = keyCombo
+                    delegate?.recordView(self, didChangeKeyCombo: keyCombo)
+                }
+            }
+            doubleTapModifier = NSEvent.ModifierFlags(rawValue: 0)
+        } else {
+            if commandTapped {
+                doubleTapModifier = .command
+            } else if shiftTapped {
+                doubleTapModifier = .shift
+            } else if controlTapped {
+                doubleTapModifier = .control
+            } else if optionTapped {
+                doubleTapModifier = .option
+            } else {
+                doubleTapModifier = NSEvent.ModifierFlags(rawValue: 0)
+            }
+        }
+
+        // Clean Flag
+        let delay = 0.3 * Double(NSEC_PER_SEC)
+        let time  = DispatchTime.now() + Double(Int64(delay)) / Double(NSEC_PER_SEC)
+        DispatchQueue.main.asyncAfter(deadline: time, execute: { [weak self] in
+            self?.doubleTapModifier = NSEvent.ModifierFlags(rawValue: 0)
+        })
     }
 
 }
@@ -346,8 +350,8 @@ private extension RecordView {
 public extension RecordView {
     @discardableResult
     public func beginRecording() -> Bool {
-        if !isEnabled { return false }
-        if isRecording { return true }
+        guard isEnabled else { return false }
+        guard !isRecording else { return true }
 
         needsDisplay = true
 
@@ -361,12 +365,15 @@ public extension RecordView {
         return true
     }
 
-    public func endRecording() {
-        if !isRecording { return }
-
+    fileprivate func resetCachedModifiers() {
         inputModifiers = NSEvent.ModifierFlags(rawValue: 0)
         doubleTapModifier = NSEvent.ModifierFlags(rawValue: 0)
         multiModifiers = false
+    }
+
+    public func endRecording() {
+        guard isRecording else { return }
+
         updateTrackingAreas()
         needsDisplay = true
 
