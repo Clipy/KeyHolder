@@ -50,7 +50,7 @@ public protocol RecordViewDelegate: class {
 
     open weak var delegate: RecordViewDelegate?
     open var didChange: ((KeyCombo?) -> Void)?
-    open var isRecording = false
+    @objc dynamic open var isRecording = false
     open var keyCombo: KeyCombo? {
         didSet { needsDisplay = true }
     }
@@ -360,10 +360,7 @@ public extension RecordView {
             return false
         }
 
-        willChangeValue(forKey: "recording")
         isRecording = true
-        didChangeValue(forKey: "recording")
-
         updateTrackingAreas()
 
         return true
@@ -375,11 +372,7 @@ public extension RecordView {
         inputModifiers = NSEvent.ModifierFlags(rawValue: 0)
         doubleTapModifier = NSEvent.ModifierFlags(rawValue: 0)
         multiModifiers = false
-
-        willChangeValue(forKey: "recording")
         isRecording = false
-        didChangeValue(forKey: "recording")
-
         updateTrackingAreas()
         needsDisplay = true
 
