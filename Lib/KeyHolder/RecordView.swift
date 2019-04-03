@@ -346,10 +346,10 @@ private extension RecordView {
     }
 }
 
-// MARK: - Recording
-public extension RecordView {
+// MARK: - Recording change callbacks
+extension RecordView {
     @discardableResult
-    public func beginRecording() -> Bool {
+    fileprivate func beginRecording() -> Bool {
         guard isEnabled else { return false }
         guard !isRecording else { return true }
 
@@ -371,7 +371,7 @@ public extension RecordView {
         multiModifiers = false
     }
 
-    public func endRecording() {
+    fileprivate func endRecording() {
         guard isRecording else { return }
 
         updateTrackingAreas()
