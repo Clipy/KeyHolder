@@ -320,8 +320,8 @@ public protocol RecordViewDelegate: class {
 }
 
 // MARK: - Text Attributes
-private extension RecordView {
-    func modifierTextAttributes(_ modifiers: NSEvent.ModifierFlags, checkModifier: NSEvent.ModifierFlags) -> [NSAttributedString.Key: Any] {
+extension RecordView {
+    fileprivate func modifierTextAttributes(_ modifiers: NSEvent.ModifierFlags, checkModifier: NSEvent.ModifierFlags) -> [NSAttributedString.Key: Any] {
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.alignment = .center
         paragraphStyle.lineBreakMode = .byTruncatingTail
@@ -350,7 +350,7 @@ private extension RecordView {
 }
 
 // MARK: - Recording
-public extension RecordView {
+extension RecordView {
     public func beginRecording() -> Bool {
         if !isEnabled { return false }
         if isRecording { return true }
@@ -391,7 +391,7 @@ public extension RecordView {
 }
 
 // MARK: - Clear Keys
-public extension RecordView {
+extension RecordView {
     public func clear() {
         keyCombo = nil
         inputModifiers = NSEvent.ModifierFlags(rawValue: 0)
@@ -407,24 +407,24 @@ public extension RecordView {
 }
 
 // MARK: - Modifiers
-private extension RecordView {
-    func validateModifiers(_ modifiers: NSEvent.ModifierFlags?) -> Bool {
+extension RecordView {
+    fileprivate func validateModifiers(_ modifiers: NSEvent.ModifierFlags?) -> Bool {
         guard let modifiers = modifiers else { return false }
         return KeyTransformer.carbonFlags(from: modifiers) != 0
     }
 }
 
 // MARK: - Bool Extension
-private extension Bool {
-    var intValue: Int {
+extension Bool {
+    fileprivate var intValue: Int {
         return NSNumber(value: self).intValue
     }
 }
 
 // MARK: - NSColor Extensio
 // nmacOS 10.14 polyfill
-private extension NSColor {
-    static let controlAccentPolyfill: NSColor = {
+extension NSColor {
+    fileprivate static let controlAccentPolyfill: NSColor = {
         if #available(macOS 10.14, *) {
             return NSColor.controlAccentColor
         } else {
