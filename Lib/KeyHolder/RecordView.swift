@@ -269,12 +269,14 @@ public protocol RecordViewDelegate: class {
         let shiftTapped = inputModifiers.contains(.shift)
         let controlTapped = inputModifiers.contains(.control)
         let optionTapped = inputModifiers.contains(.option)
-        let totalHash = commandTapped.hashValue + optionTapped.hashValue + shiftTapped.hashValue + controlTapped.hashValue
-        if totalHash > 1 {
+        let modifiersCount = [commandTapped, optionTapped, shiftTapped, controlTapped]
+            .filter { $0 == true }
+            .count
+        if modifiersCount > 1 {
             multiModifiers = true
             return
         }
-        if multiModifiers || totalHash == 0 {
+        if multiModifiers || modifiersCount == 0 {
             multiModifiers = false
             return
         }
