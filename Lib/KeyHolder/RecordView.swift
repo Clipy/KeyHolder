@@ -67,6 +67,7 @@ public protocol RecordViewDelegate: class {
     fileprivate let clearAlternateImage = Util.bundleImage(name: "clear-on")
     fileprivate let validModifiers: [NSEvent.ModifierFlags] = [.shift, .control, .option, .command]
     fileprivate let validModifiersText: [NSString] = ["⇧", "⌃", "⌥", "⌘"]
+    fileprivate var validateModifiers: Bool = true
     fileprivate var inputModifiers = NSEvent.ModifierFlags(rawValue: 0)
     fileprivate var doubleTapModifier = NSEvent.ModifierFlags(rawValue: 0)
     fileprivate var multiModifiers = false
@@ -98,6 +99,19 @@ public protocol RecordViewDelegate: class {
     public override init(frame frameRect: NSRect) {
         super.init(frame: frameRect)
         initView()
+    }
+
+  /// Initializes and returns a newly allocated `RecorderView` object with a specified frame rectangle.
+  /// By setting `validateModifiers` to `false` modifiers will no longer be required in order to record
+  /// a shorcut.
+  /// - Parameters:
+  ///   - validateModifiers: Indicates whether modifiers are required in order to record a shortcut.
+  ///                        If set to `false` then `modifiers` are not validated when recording shortcuts.
+  ///                        The default value is `true`.
+  ///   - frameRect: The frame rectangle for the created view object.
+    public init(requireModifiers validateModifiers: Bool, frame frameRect: NSRect = .zero) {
+      self.validateModifiers = validateModifiers
+      super.init(frame: frameRect)
     }
 
     public required init?(coder: NSCoder) {
@@ -225,7 +239,7 @@ public protocol RecordViewDelegate: class {
         if window?.firstResponder != self { return false }
 
         let keyCodeInt = Int(theEvent.keyCode)
-        if isRecording && validateModifiers(inputModifiers) {
+        if isRecording && (!validateModifiers || validateModifiers(inputModifiers)) {
             let modifiers = KeyTransformer.carbonFlags(from: theEvent.modifierFlags)
             if let keyCombo = KeyCombo(keyCode: keyCodeInt, carbonModifiers: modifiers) {
                 if delegate?.recordView(self, canRecordKeyCombo: keyCombo) ?? true {
