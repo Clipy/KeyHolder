@@ -7,18 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		09DBE731245B161D007B5497 /* Sauce.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09DBE730245B161D007B5497 /* Sauce.framework */; };
+		093B1449245B262F00D00737 /* Magnet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA21712B2072183500A63D31 /* Magnet.framework */; };
 		312C0FDF1D13AA1F00973348 /* KeyHolder.h in Headers */ = {isa = PBXBuildFile; fileRef = 312C0FDE1D13AA1F00973348 /* KeyHolder.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		312C0FE61D13AA1F00973348 /* KeyHolder.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 312C0FDB1D13AA1F00973348 /* KeyHolder.framework */; };
 		312C0FEB1D13AA1F00973348 /* KeyHolderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312C0FEA1D13AA1F00973348 /* KeyHolderTests.swift */; };
 		31FAEB611D13CC39008A6D6E /* RecordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FAEB601D13CC39008A6D6E /* RecordView.swift */; };
-		31FAEB841D13EB9C008A6D6E /* Magnet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 31FAEB811D13EB95008A6D6E /* Magnet.framework */; };
 		FA71454B1D14967A004A04D4 /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA71454A1D14967A004A04D4 /* Util.swift */; };
 		FA71454F1D1496C5004A04D4 /* clear-off@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FA71454D1D1496C5004A04D4 /* clear-off@2x.png */; };
 		FA7145501D1496C5004A04D4 /* clear-on@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FA71454E1D1496C5004A04D4 /* clear-on@2x.png */; };
 		FA7145531D1496F4004A04D4 /* clear-off.png in Resources */ = {isa = PBXBuildFile; fileRef = FA7145511D1496F4004A04D4 /* clear-off.png */; };
 		FA7145541D1496F4004A04D4 /* clear-on.png in Resources */ = {isa = PBXBuildFile; fileRef = FA7145521D1496F4004A04D4 /* clear-on.png */; };
-		FA99CB4A2072180B00B04AB9 /* Magnet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 31FAEB811D13EB95008A6D6E /* Magnet.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -28,20 +26,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = 312C0FDA1D13AA1F00973348;
 			remoteInfo = KeyHolder;
-		};
-		31FAEB801D13EB95008A6D6E /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 31FAEB7B1D13EB95008A6D6E /* Magnet.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = FAEC34AF1C9059DF004177E2;
-			remoteInfo = Magnet;
-		};
-		31FAEB821D13EB95008A6D6E /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 31FAEB7B1D13EB95008A6D6E /* Magnet.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = FAEC34B91C9059DF004177E2;
-			remoteInfo = MagnetTests;
 		};
 		FA21712A2072183500A63D31 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -60,7 +44,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		09DBE730245B161D007B5497 /* Sauce.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Sauce.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		312C0FDB1D13AA1F00973348 /* KeyHolder.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = KeyHolder.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		312C0FDE1D13AA1F00973348 /* KeyHolder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KeyHolder.h; sourceTree = "<group>"; };
 		312C0FE01D13AA1F00973348 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -68,7 +51,6 @@
 		312C0FEA1D13AA1F00973348 /* KeyHolderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyHolderTests.swift; sourceTree = "<group>"; };
 		312C0FEC1D13AA1F00973348 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		31FAEB601D13CC39008A6D6E /* RecordView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordView.swift; sourceTree = "<group>"; };
-		31FAEB7B1D13EB95008A6D6E /* Magnet.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Magnet.xcodeproj; path = ../Carthage/Checkouts/Magnet/Lib/Magnet.xcodeproj; sourceTree = "<group>"; };
 		FA2171252072183500A63D31 /* Magnet.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Magnet.xcodeproj; path = ../Carthage/Checkouts/Magnet/Lib/Magnet.xcodeproj; sourceTree = "<group>"; };
 		FA71454A1D14967A004A04D4 /* Util.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Util.swift; sourceTree = "<group>"; };
 		FA71454D1D1496C5004A04D4 /* clear-off@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "clear-off@2x.png"; sourceTree = "<group>"; };
@@ -82,8 +64,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				09DBE731245B161D007B5497 /* Sauce.framework in Frameworks */,
-				31FAEB841D13EB9C008A6D6E /* Magnet.framework in Frameworks */,
+				093B1449245B262F00D00737 /* Magnet.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -91,7 +72,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FA99CB4A2072180B00B04AB9 /* Magnet.framework in Frameworks */,
 				312C0FE61D13AA1F00973348 /* KeyHolder.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -106,7 +86,6 @@
 				312C0FE91D13AA1F00973348 /* KeyHolderTests */,
 				312C0FDC1D13AA1F00973348 /* Products */,
 				FA99CB492072180B00B04AB9 /* Frameworks */,
-				31FAEB7B1D13EB95008A6D6E /* Magnet.xcodeproj */,
 			);
 			sourceTree = "<group>";
 		};
@@ -140,15 +119,6 @@
 			path = KeyHolderTests;
 			sourceTree = "<group>";
 		};
-		31FAEB7C1D13EB95008A6D6E /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				31FAEB811D13EB95008A6D6E /* Magnet.framework */,
-				31FAEB831D13EB95008A6D6E /* MagnetTests.xctest */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		FA2171262072183500A63D31 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -172,7 +142,6 @@
 		FA99CB492072180B00B04AB9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				09DBE730245B161D007B5497 /* Sauce.framework */,
 				FA2171252072183500A63D31 /* Magnet.xcodeproj */,
 			);
 			name = Frameworks;
@@ -264,10 +233,6 @@
 					ProductGroup = FA2171262072183500A63D31 /* Products */;
 					ProjectRef = FA2171252072183500A63D31 /* Magnet.xcodeproj */;
 				},
-				{
-					ProductGroup = 31FAEB7C1D13EB95008A6D6E /* Products */;
-					ProjectRef = 31FAEB7B1D13EB95008A6D6E /* Magnet.xcodeproj */;
-				},
 			);
 			projectRoot = "";
 			targets = (
@@ -278,20 +243,6 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		31FAEB811D13EB95008A6D6E /* Magnet.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = Magnet.framework;
-			remoteRef = 31FAEB801D13EB95008A6D6E /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		31FAEB831D13EB95008A6D6E /* MagnetTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = MagnetTests.xctest;
-			remoteRef = 31FAEB821D13EB95008A6D6E /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
 		FA21712B2072183500A63D31 /* Magnet.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
