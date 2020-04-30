@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		09DBE731245B161D007B5497 /* Sauce.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09DBE730245B161D007B5497 /* Sauce.framework */; };
 		312C0FDF1D13AA1F00973348 /* KeyHolder.h in Headers */ = {isa = PBXBuildFile; fileRef = 312C0FDE1D13AA1F00973348 /* KeyHolder.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		312C0FE61D13AA1F00973348 /* KeyHolder.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 312C0FDB1D13AA1F00973348 /* KeyHolder.framework */; };
 		312C0FEB1D13AA1F00973348 /* KeyHolderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312C0FEA1D13AA1F00973348 /* KeyHolderTests.swift */; };
@@ -59,6 +60,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		09DBE730245B161D007B5497 /* Sauce.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Sauce.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		312C0FDB1D13AA1F00973348 /* KeyHolder.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = KeyHolder.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		312C0FDE1D13AA1F00973348 /* KeyHolder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KeyHolder.h; sourceTree = "<group>"; };
 		312C0FE01D13AA1F00973348 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -80,6 +82,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				09DBE731245B161D007B5497 /* Sauce.framework in Frameworks */,
 				31FAEB841D13EB9C008A6D6E /* Magnet.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -169,6 +172,7 @@
 		FA99CB492072180B00B04AB9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				09DBE730245B161D007B5497 /* Sauce.framework */,
 				FA2171252072183500A63D31 /* Magnet.xcodeproj */,
 			);
 			name = Frameworks;

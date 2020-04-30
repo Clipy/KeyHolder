@@ -11,6 +11,7 @@
 import Cocoa
 import Carbon
 import Magnet
+import Sauce
 
 public protocol RecordViewDelegate: class {
     func recordViewShouldBeginRecording(_ recordView: RecordView) -> Bool
@@ -143,7 +144,7 @@ open class RecordView: NSView {
         let fontSize = self.fontSize
         let modifiers: NSEvent.ModifierFlags
         if let keyCombo = self.keyCombo {
-            modifiers = KeyTransformer.cocoaFlags(from: keyCombo.modifiers)
+            modifiers = keyCombo.modifiers.convertSupportCococaModifiers()
         } else {
             modifiers = inputModifiers
         }
@@ -222,11 +223,10 @@ open class RecordView: NSView {
     override open func performKeyEquivalent(with theEvent: NSEvent) -> Bool {
         if !isEnabled { return false }
         if window?.firstResponder != self { return false }
-
-        let keyCodeInt = Int(theEvent.keyCode)
+        guard let key = Sauce.shared.key(by: Int(theEvent.keyCode)) else { return false }
         if isRecording && validateModifiers(inputModifiers) {
-            let modifiers = KeyTransformer.carbonFlags(from: theEvent.modifierFlags)
-            if let keyCombo = KeyCombo(keyCode: keyCodeInt, carbonModifiers: modifiers) {
+            let modifiers = theEvent.modifierFlags.carbonModifiers()
+            if let keyCombo = KeyCombo(key: key, carbonModifiers: modifiers) {
                 if delegate?.recordView(self, canRecordKeyCombo: keyCombo) ?? true {
                     self.keyCombo = keyCombo
                     didChange?(keyCombo)
@@ -236,8 +236,8 @@ open class RecordView: NSView {
                 }
             }
             return false
-        } else if isRecording && KeyTransformer.containsFunctionKey(keyCodeInt) {
-            if let keyCombo = KeyCombo(keyCode: keyCodeInt, carbonModifiers: 0) {
+        } else if isRecording && key.isFunctionKey {
+            if let keyCombo = KeyCombo(key: key, cocoaModifiers: []) {
                 if delegate?.recordView(self, canRecordKeyCombo: keyCombo) ?? true {
                     self.keyCombo = keyCombo
                     didChange?(keyCombo)
@@ -409,7 +409,7 @@ public extension RecordView {
 private extension RecordView {
     func validateModifiers(_ modifiers: NSEvent.ModifierFlags?) -> Bool {
         guard let modifiers = modifiers else { return false }
-        return KeyTransformer.carbonFlags(from: modifiers) != 0
+        return modifiers.carbonModifiers() != 0
     }
 }
 
