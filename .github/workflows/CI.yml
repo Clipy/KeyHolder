@@ -2,11 +2,13 @@ name: CI
 on: [push, pull_request]
 jobs:
   test:
+
     runs-on: macos-latest
+
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v2
       with:
-        submodules: true
+        submodules: recursive
 
     - name: Xcode select
       run: sudo xcode-select -s /Applications/Xcode_11.4.app
