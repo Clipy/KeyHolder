@@ -30,4 +30,9 @@ opt_in_rules:
 disabled_rules:
   - nesting
   - function_parameter_count
+identifier_name:
+  excluded:
+    - i
+    - x
+    - y
 line_length: 300
