@@ -22,7 +22,8 @@ public protocol RecordViewDelegate: class {
     func recordViewDidEndRecording(_ recordView: RecordView)
 }
 
-@IBDesignable open class RecordView: NSView {
+@IBDesignable
+open class RecordView: NSView {
 
     // MARK: - Properties
     @IBInspectable open var backgroundColor: NSColor = .white {
@@ -306,14 +307,14 @@ public protocol RecordViewDelegate: class {
 
             // Clean Flag
             let delay = 0.3 * Double(NSEC_PER_SEC)
-            let time  = DispatchTime.now() + Double(Int64(delay)) / Double(NSEC_PER_SEC)
+            let time = DispatchTime.now() + Double(Int64(delay)) / Double(NSEC_PER_SEC)
             DispatchQueue.main.asyncAfter(deadline: time, execute: { [weak self] in
                 self?.doubleTapModifier = NSEvent.ModifierFlags(rawValue: 0)
             })
         } else {
             inputModifiers = NSEvent.ModifierFlags(rawValue: 0)
         }
-        
+
         super.flagsChanged(with: theEvent)
     }
 
@@ -350,14 +351,14 @@ extension RecordView {
 }
 
 // MARK: - Recording
-extension RecordView {
-    public func beginRecording() -> Bool {
+public extension RecordView {
+    func beginRecording() -> Bool {
         if !isEnabled { return false }
         if isRecording { return true }
 
         needsDisplay = true
 
-        if let delegate = delegate , !delegate.recordViewShouldBeginRecording(self) {
+        if let delegate = delegate, !delegate.recordViewShouldBeginRecording(self) {
             NSSound.beep()
             return false
         }
@@ -371,7 +372,7 @@ extension RecordView {
         return true
     }
 
-    public func endRecording() {
+    func endRecording() {
         if !isRecording { return }
 
         inputModifiers = NSEvent.ModifierFlags(rawValue: 0)
@@ -391,8 +392,8 @@ extension RecordView {
 }
 
 // MARK: - Clear Keys
-extension RecordView {
-    public func clear() {
+public extension RecordView {
+    func clear() {
         keyCombo = nil
         inputModifiers = NSEvent.ModifierFlags(rawValue: 0)
         needsDisplay = true
@@ -400,31 +401,31 @@ extension RecordView {
         delegate?.recordViewDidClearShortcut(self)
     }
 
-    @objc public func clearAndEndRecording() {
+    @objc func clearAndEndRecording() {
         clear()
         endRecording()
     }
 }
 
 // MARK: - Modifiers
-extension RecordView {
-    fileprivate func validateModifiers(_ modifiers: NSEvent.ModifierFlags?) -> Bool {
+private extension RecordView {
+    func validateModifiers(_ modifiers: NSEvent.ModifierFlags?) -> Bool {
         guard let modifiers = modifiers else { return false }
         return KeyTransformer.carbonFlags(from: modifiers) != 0
     }
 }
 
 // MARK: - Bool Extension
-extension Bool {
-    fileprivate var intValue: Int {
+private extension Bool {
+    var intValue: Int {
         return NSNumber(value: self).intValue
     }
 }
 
 // MARK: - NSColor Extensio
 // nmacOS 10.14 polyfill
-extension NSColor {
-    fileprivate static let controlAccentPolyfill: NSColor = {
+private extension NSColor {
+    static let controlAccentPolyfill: NSColor = {
         if #available(macOS 10.14, *) {
             return NSColor.controlAccentColor
         } else {
