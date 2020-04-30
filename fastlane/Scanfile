@@ -1,4 +1,0 @@
-workspace("KeyHolder.xcworkspace")
-scheme("KeyHolder")
-clean(true)
-skip_build(true)
