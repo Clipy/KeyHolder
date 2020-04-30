@@ -10,11 +10,6 @@ Record shortcuts in macOS, like Alfred App.
 <img src="https://github.com/Clipy/KeyHolder/blob/master/Screenshots/double_tap_shortcut.png?raw=true" width="300">
 <img src="https://github.com/Clipy/KeyHolder/blob/master/Screenshots/normal_shortcut.png?raw=true" width="300">
 
-## Requirements
-- macOS 10.10+
-- Xcode 10.0+
-- Swift 4.2+
-
 ## Usage
 ### CocoaPods
 ```
@@ -25,6 +20,7 @@ pod 'KeyHolder'
 ```
 github "Clipy/KeyHolder"
 github "Clipy/Magnet"
+github "Clipy/Sauce"
 ```
 
 ## Example
@@ -56,6 +52,7 @@ recordView.didChange = { keyCombo in
 ## Dependencies
 The source code is dependent on hotkey library.
 - [Magnet](https://github.com/Clipy/Magnet)
+- [Sauce](https://github.com/Clipy/Sauce)
 
 ## How to Build
 1. Move to the project root directory
