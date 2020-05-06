@@ -57,7 +57,7 @@ The source code is dependent on hotkey library.
 ## How to Build
 1. Move to the project root directory
 2. Install dependency library with `carthage` or `git submodule`
-3. `carthage checkout --use-submodules` or `git submodule init && git submodule update --recursive`
+3. `carthage checkout --use-submodules` or `git submodule update --init --recursive`
 4. Open `KeyHolder.xcworkspace` on Xcode.
 5. build.
 
