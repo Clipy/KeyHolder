@@ -144,7 +144,7 @@ open class RecordView: NSView {
         let fontSize = self.fontSize
         let modifiers: NSEvent.ModifierFlags
         if let keyCombo = self.keyCombo {
-            modifiers = keyCombo.modifiers.convertSupportCococaModifiers()
+            modifiers = keyCombo.modifiers.convertSupportCocoaModifiers()
         } else {
             modifiers = inputModifiers
         }
@@ -160,7 +160,7 @@ open class RecordView: NSView {
         let minX = (fontSize * 4) + (marginX * 2)
         let width = bounds.width - minX - (marginX * 2) - clearSize
         if width <= 0 { return }
-        let text = (keyCombo.doubledModifiers) ? "double tap" : keyCombo.characters
+        let text = (keyCombo.doubledModifiers) ? "double tap" : keyCombo.keyEquivalent.uppercased()
         text.draw(in: NSRect(x: minX, y: marginY, width: width, height: bounds.height), withAttributes: keyCodeTextAttributes())
     }
 
