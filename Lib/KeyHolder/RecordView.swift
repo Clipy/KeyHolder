@@ -62,9 +62,7 @@ open class RecordView: NSView {
         }
     }
 
-    fileprivate let clearButton = NSButton()
-    fileprivate let clearNormalImage = Util.bundleImage(name: "clear-off")
-    fileprivate let clearAlternateImage = Util.bundleImage(name: "clear-on")
+    private let clearButton = ClearButton()
     fileprivate let validModifiers: [NSEvent.ModifierFlags] = [.shift, .control, .option, .command]
     fileprivate let validModifiersText: [NSString] = ["⇧", "⌃", "⌥", "⌘"]
     fileprivate var inputModifiers = NSEvent.ModifierFlags(rawValue: 0)
@@ -106,10 +104,6 @@ open class RecordView: NSView {
     }
 
     fileprivate func initView() {
-        clearButton.bezelStyle = .shadowlessSquare
-        clearButton.setButtonType(.momentaryChange)
-        clearButton.isBordered = false
-        clearButton.title = ""
         clearButton.target = self
         clearButton.action = #selector(RecordView.clearAndEndRecording)
         addSubview(clearButton)
@@ -166,10 +160,6 @@ open class RecordView: NSView {
 
     fileprivate func drawClearButton(_ dirtyRext: NSRect) {
         let clearSize = self.clearSize
-        clearNormalImage?.size = CGSize(width: clearSize, height: clearSize)
-        clearAlternateImage?.size = CGSize(width: clearSize, height: clearSize)
-        clearButton.image = clearNormalImage
-        clearButton.alternateImage = clearAlternateImage
         let x = bounds.width - clearSize - marginX
         let y = (bounds.height - clearSize) / 2
         clearButton.frame = NSRect(x: x, y: y, width: clearSize, height: clearSize)
