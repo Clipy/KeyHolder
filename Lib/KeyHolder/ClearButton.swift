@@ -31,6 +31,7 @@ final class ClearButton: NSButton {
     }
 
     // MARK: - Layout
+    // swiftlint:disable function_body_length
     override func draw(_ dirtyRect: NSRect) {
         super.draw(dirtyRect)
         layer?.cornerRadius = bounds.height / 2
@@ -81,6 +82,7 @@ final class ClearButton: NSButton {
         // Layer
         layer?.addSublayer(circleFillLayer)
     }
+    // swiftlint:enable function_body_length
 
 }
 
