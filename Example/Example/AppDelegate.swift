@@ -23,6 +23,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         let keyCombo = KeyCombo(doubledCocoaModifiers: .command)
         recordView.keyCombo = keyCombo
         recordView.delegate = self
+        recordView.clearButtonMode = .whenRecorded
 
         let hotKey = HotKey(identifier: "KeyHolderExample", keyCombo: keyCombo!, target: self, action: #selector(AppDelegate.hotkeyCalled))
         hotKey.register()
