@@ -44,7 +44,7 @@ open class RecordView: NSView {
             noteFocusRingMaskChanged()
         }
     }
-    @IBInspectable open var showsClearButton: Bool = true {
+    open var clearButtonMode: RecordView.ClearButtonMode = .always {
         didSet { needsDisplay = true }
     }
 
@@ -163,7 +163,14 @@ open class RecordView: NSView {
         let x = bounds.width - clearSize - marginX
         let y = (bounds.height - clearSize) / 2
         clearButton.frame = NSRect(x: x, y: y, width: clearSize, height: clearSize)
-        clearButton.isHidden = !showsClearButton
+        switch clearButtonMode {
+        case .always:
+            clearButton.isHidden = false
+        case .never:
+            clearButton.isHidden = true
+        case .whenRecorded:
+            clearButton.isHidden = (keyCombo == nil)
+        }
     }
 
     // MARK: - NSResponder
@@ -403,14 +410,16 @@ private extension RecordView {
     }
 }
 
-// MARK: - Bool Extension
-private extension Bool {
-    var intValue: Int {
-        return NSNumber(value: self).intValue
+// MARK: - Clear Button Mode
+public extension RecordView {
+    enum ClearButtonMode {
+        case never
+        case always
+        case whenRecorded
     }
 }
 
-// MARK: - NSColor Extensio
+// MARK: - NSColor Extension
 // nmacOS 10.14 polyfill
 private extension NSColor {
     static let controlAccentPolyfill: NSColor = {
