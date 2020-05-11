@@ -13,7 +13,7 @@ import Carbon
 import Magnet
 import Sauce
 
-public protocol RecordViewDelegate: class {
+public protocol RecordViewDelegate: AnyObject {
     func recordViewShouldBeginRecording(_ recordView: RecordView) -> Bool
     func recordView(_ recordView: RecordView, canRecordKeyCombo keyCombo: KeyCombo) -> Bool
     func recordViewDidClearShortcut(_ recordView: RecordView)
@@ -63,21 +63,21 @@ open class RecordView: NSView {
     }
 
     private let clearButton = ClearButton()
-    fileprivate let validModifiers: [NSEvent.ModifierFlags] = [.shift, .control, .option, .command]
-    fileprivate let validModifiersText: [NSString] = ["⇧", "⌃", "⌥", "⌘"]
-    fileprivate var inputModifiers = NSEvent.ModifierFlags(rawValue: 0)
-    fileprivate var doubleTapModifier = NSEvent.ModifierFlags(rawValue: 0)
-    fileprivate var multiModifiers = false
-    fileprivate var fontSize: CGFloat {
+    private let validModifiers: [NSEvent.ModifierFlags] = [.shift, .control, .option, .command]
+    private let validModifiersText: [NSString] = ["⇧", "⌃", "⌥", "⌘"]
+    private var inputModifiers = NSEvent.ModifierFlags(rawValue: 0)
+    private var doubleTapModifier = NSEvent.ModifierFlags(rawValue: 0)
+    private var multiModifiers = false
+    private var fontSize: CGFloat {
         return bounds.height / 1.7
     }
-    fileprivate var clearSize: CGFloat {
+    private var clearSize: CGFloat {
         return fontSize / 1.3
     }
-    fileprivate var marginY: CGFloat {
+    private var marginY: CGFloat {
         return (bounds.height - fontSize) / 2.6
     }
-    fileprivate var marginX: CGFloat {
+    private var marginX: CGFloat {
         return marginY * 1.5
     }
 
@@ -103,7 +103,7 @@ open class RecordView: NSView {
         initView()
     }
 
-    fileprivate func initView() {
+    private func initView() {
         clearButton.target = self
         clearButton.action = #selector(RecordView.clearAndEndRecording)
         addSubview(clearButton)
@@ -123,7 +123,7 @@ open class RecordView: NSView {
         drawClearButton(dirtyRect)
     }
 
-    fileprivate func drawBackground(_ dirtyRect: NSRect) {
+    private func drawBackground(_ dirtyRect: NSRect) {
         backgroundColor.setFill()
         NSBezierPath(roundedRect: bounds, xRadius: cornerRadius, yRadius: cornerRadius).fill()
 
@@ -134,7 +134,7 @@ open class RecordView: NSView {
         path.stroke()
     }
 
-    fileprivate func drawModifiers(_ dirtyRect: NSRect) {
+    private func drawModifiers(_ dirtyRect: NSRect) {
         let fontSize = self.fontSize
         let modifiers: NSEvent.ModifierFlags
         if let keyCombo = self.keyCombo {
@@ -148,7 +148,7 @@ open class RecordView: NSView {
         }
     }
 
-    fileprivate func drawKeyCode(_ dirtyRext: NSRect) {
+    private func drawKeyCode(_ dirtyRext: NSRect) {
         guard let keyCombo = self.keyCombo else { return }
         let fontSize = self.fontSize
         let minX = (fontSize * 4) + (marginX * 2)
@@ -158,7 +158,7 @@ open class RecordView: NSView {
         text.draw(in: NSRect(x: minX, y: marginY, width: width, height: bounds.height), withAttributes: keyCodeTextAttributes())
     }
 
-    fileprivate func drawClearButton(_ dirtyRext: NSRect) {
+    private func drawClearButton(_ dirtyRext: NSRect) {
         let clearSize = self.clearSize
         let x = bounds.width - clearSize - marginX
         let y = (bounds.height - clearSize) / 2
@@ -218,8 +218,8 @@ open class RecordView: NSView {
     }
 
     override open func performKeyEquivalent(with theEvent: NSEvent) -> Bool {
-        if !isEnabled { return false }
-        if window?.firstResponder != self { return false }
+        guard isEnabled else { return false }
+        guard window?.firstResponder == self else { return false }
         guard let key = Sauce.shared.key(by: Int(theEvent.keyCode)) else { return false }
         if isRecording && validateModifiers(inputModifiers) {
             let modifiers = theEvent.modifierFlags.carbonModifiers()
@@ -251,64 +251,62 @@ open class RecordView: NSView {
     }
 
     override open func flagsChanged(with theEvent: NSEvent) {
-        if isRecording {
-            inputModifiers = theEvent.modifierFlags
-            needsDisplay = true
-
-            // For dobule tap
-            let commandTapped = inputModifiers.contains(.command)
-            let shiftTapped = inputModifiers.contains(.shift)
-            let controlTapped = inputModifiers.contains(.control)
-            let optionTapped = inputModifiers.contains(.option)
-            let modifiersCount = [commandTapped, optionTapped, shiftTapped, controlTapped]
-                .filter { $0 == true }
-                .count
-            if modifiersCount > 1 {
-                multiModifiers = true
-                return
-            }
-            if multiModifiers || modifiersCount == 0 {
-                multiModifiers = false
-                return
-            }
-
-            if (doubleTapModifier.contains(.command) && commandTapped) ||
-                (doubleTapModifier.contains(.shift) && shiftTapped)    ||
-                (doubleTapModifier.contains(.control) && controlTapped) ||
-                (doubleTapModifier.contains(.option) && optionTapped) {
-
-                if let keyCombo = KeyCombo(doubledCocoaModifiers: doubleTapModifier) {
-                    if delegate?.recordView(self, canRecordKeyCombo: keyCombo) ?? true {
-                        self.keyCombo = keyCombo
-                        didChange?(keyCombo)
-                        delegate?.recordView(self, didChangeKeyCombo: keyCombo)
-                        endRecording()
-                    }
-                }
-                doubleTapModifier = NSEvent.ModifierFlags(rawValue: 0)
-            } else {
-                if commandTapped {
-                    doubleTapModifier = .command
-                } else if shiftTapped {
-                    doubleTapModifier = .shift
-                } else if controlTapped {
-                    doubleTapModifier = .control
-                } else if optionTapped {
-                    doubleTapModifier = .option
-                } else {
-                    doubleTapModifier = NSEvent.ModifierFlags(rawValue: 0)
-                }
-            }
-
-            // Clean Flag
-            let delay = 0.3 * Double(NSEC_PER_SEC)
-            let time = DispatchTime.now() + Double(Int64(delay)) / Double(NSEC_PER_SEC)
-            DispatchQueue.main.asyncAfter(deadline: time, execute: { [weak self] in
-                self?.doubleTapModifier = NSEvent.ModifierFlags(rawValue: 0)
-            })
-        } else {
+        guard isRecording else {
             inputModifiers = NSEvent.ModifierFlags(rawValue: 0)
+            super.flagsChanged(with: theEvent)
+            return
         }
+
+        inputModifiers = theEvent.modifierFlags
+        needsDisplay = true
+
+        // For dobule tap
+        let commandTapped = inputModifiers.contains(.command)
+        let shiftTapped = inputModifiers.contains(.shift)
+        let controlTapped = inputModifiers.contains(.control)
+        let optionTapped = inputModifiers.contains(.option)
+        let modifiersCount = [commandTapped, optionTapped, shiftTapped, controlTapped].trueCount
+        if modifiersCount > 1 {
+            multiModifiers = true
+            return
+        }
+        if multiModifiers || modifiersCount == 0 {
+            multiModifiers = false
+            return
+        }
+
+        if (doubleTapModifier.contains(.command) && commandTapped) ||
+            (doubleTapModifier.contains(.shift) && shiftTapped)    ||
+            (doubleTapModifier.contains(.control) && controlTapped) ||
+            (doubleTapModifier.contains(.option) && optionTapped) {
+
+            if let keyCombo = KeyCombo(doubledCocoaModifiers: doubleTapModifier) {
+                if delegate?.recordView(self, canRecordKeyCombo: keyCombo) ?? true {
+                    self.keyCombo = keyCombo
+                    didChange?(keyCombo)
+                    delegate?.recordView(self, didChangeKeyCombo: keyCombo)
+                    endRecording()
+                }
+            }
+            doubleTapModifier = NSEvent.ModifierFlags(rawValue: 0)
+        } else {
+            if commandTapped {
+                doubleTapModifier = .command
+            } else if shiftTapped {
+                doubleTapModifier = .shift
+            } else if controlTapped {
+                doubleTapModifier = .control
+            } else if optionTapped {
+                doubleTapModifier = .option
+            } else {
+                doubleTapModifier = NSEvent.ModifierFlags(rawValue: 0)
+            }
+        }
+
+        // Clean Flag
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3, execute: { [weak self] in
+            self?.doubleTapModifier = NSEvent.ModifierFlags(rawValue: 0)
+        })
 
         super.flagsChanged(with: theEvent)
     }
@@ -316,8 +314,8 @@ open class RecordView: NSView {
 }
 
 // MARK: - Text Attributes
-extension RecordView {
-    fileprivate func modifierTextAttributes(_ modifiers: NSEvent.ModifierFlags, checkModifier: NSEvent.ModifierFlags) -> [NSAttributedString.Key: Any] {
+private extension RecordView {
+    func modifierTextAttributes(_ modifiers: NSEvent.ModifierFlags, checkModifier: NSEvent.ModifierFlags) -> [NSAttributedString.Key: Any] {
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.alignment = .center
         paragraphStyle.lineBreakMode = .byTruncatingTail
