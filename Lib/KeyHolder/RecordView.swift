@@ -50,7 +50,7 @@ open class RecordView: NSView {
 
     open weak var delegate: RecordViewDelegate?
     open var didChange: ((KeyCombo?) -> Void)?
-    open var isRecording = false
+    @objc dynamic open private(set) var isRecording = false
     open var keyCombo: KeyCombo? {
         didSet { needsDisplay = true }
     }
@@ -348,8 +348,8 @@ extension RecordView {
 // MARK: - Recording
 public extension RecordView {
     func beginRecording() -> Bool {
-        if !isEnabled { return false }
-        if isRecording { return true }
+        guard isEnabled else { return false }
+        guard !isRecording else { return true }
 
         needsDisplay = true
 
@@ -358,26 +358,20 @@ public extension RecordView {
             return false
         }
 
-        willChangeValue(forKey: "recording")
         isRecording = true
-        didChangeValue(forKey: "recording")
-
         updateTrackingAreas()
 
         return true
     }
 
     func endRecording() {
-        if !isRecording { return }
+        guard isRecording else { return }
 
         inputModifiers = NSEvent.ModifierFlags(rawValue: 0)
         doubleTapModifier = NSEvent.ModifierFlags(rawValue: 0)
         multiModifiers = false
 
-        willChangeValue(forKey: "recording")
         isRecording = false
-        didChangeValue(forKey: "recording")
-
         updateTrackingAreas()
         needsDisplay = true
 
