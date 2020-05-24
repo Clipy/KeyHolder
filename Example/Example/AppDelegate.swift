@@ -20,13 +20,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         recordView.tintColor = NSColor(red: 0.164, green: 0.517, blue: 0.823, alpha: 1)
-        let keyCombo = KeyCombo(doubledCocoaModifiers: .command)
-        recordView.keyCombo = keyCombo
         recordView.delegate = self
         recordView.clearButtonMode = .whenRecorded
-
-        let hotKey = HotKey(identifier: "KeyHolderExample", keyCombo: keyCombo!, target: self, action: #selector(AppDelegate.hotkeyCalled))
-        hotKey.register()
+        restoreKeyCombo()
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {
@@ -35,6 +31,19 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     @objc func hotkeyCalled() {
         print("HotKey called!!!!")
+    }
+
+    private func restoreKeyCombo() {
+        guard let data = UserDefaults.standard.data(forKey: "keyCombo") else { return }
+        guard let keyCombo = try? JSONDecoder().decode(KeyCombo.self, from: data) else { return }
+        recordView.keyCombo = keyCombo
+        let hotKey = HotKey(identifier: "KeyHolderExample", keyCombo: keyCombo, target: self, action: #selector(AppDelegate.hotkeyCalled))
+        hotKey.register()
+    }
+
+    private func storeKeyCombo(with keyCombo: KeyCombo?) {
+        let data = try? JSONEncoder().encode(keyCombo)
+        UserDefaults.standard.set(data, forKey: "keyCombo")
     }
 
 }
@@ -52,6 +61,7 @@ extension AppDelegate: RecordViewDelegate {
 
     func recordViewDidClearShortcut(_ recordView: RecordView) {
         print("clear shortcut")
+        storeKeyCombo(with: nil)
         HotKeyCenter.shared.unregisterHotKey(with: "KeyHolderExample")
     }
 
@@ -61,6 +71,7 @@ extension AppDelegate: RecordViewDelegate {
 
     func recordView(_ recordView: RecordView, didChangeKeyCombo keyCombo: KeyCombo) {
         HotKeyCenter.shared.unregisterHotKey(with: "KeyHolderExample")
+        storeKeyCombo(with: keyCombo)
         let hotKey = HotKey(identifier: "KeyHolderExample", keyCombo: keyCombo, target: self, action: #selector(AppDelegate.hotkeyCalled))
         hotKey.register()
     }
