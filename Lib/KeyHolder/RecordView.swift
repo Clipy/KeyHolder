@@ -264,6 +264,7 @@ open class RecordView: NSView {
 
     override open func flagsChanged(with theEvent: NSEvent) {
         guard isRecording else {
+            inputModifiers = NSEvent.ModifierFlags(rawValue: 0)
             super.flagsChanged(with: theEvent)
             return
         }
