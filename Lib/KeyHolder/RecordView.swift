@@ -66,8 +66,8 @@ open class RecordView: NSView {
     private let modifierEventHandler = ModifierEventHandler()
     private let validModifiers: [NSEvent.ModifierFlags] = [.shift, .control, .option, .command]
     private let validModifiersText: [NSString] = ["⇧", "⌃", "⌥", "⌘"]
-    private var inputModifiers = NSEvent.ModifierFlags(rawValue: 0)
-    private var doubleTapModifier = NSEvent.ModifierFlags(rawValue: 0)
+    private var inputModifiers = NSEvent.ModifierFlags()
+    private var doubleTapModifier = NSEvent.ModifierFlags()
     private var multiModifiers = false
     private var fontSize: CGFloat {
         return bounds.height / 1.7
@@ -198,27 +198,13 @@ open class RecordView: NSView {
         return true
     }
 
+    open override func becomeFirstResponder() -> Bool {
+        return beginRecording()
+    }
+
     override open func resignFirstResponder() -> Bool {
         endRecording()
         return super.resignFirstResponder()
-    }
-
-    override open func acceptsFirstMouse(for theEvent: NSEvent?) -> Bool {
-        return true
-    }
-
-    override open func mouseDown(with theEvent: NSEvent) {
-        if !isEnabled {
-            super.mouseDown(with: theEvent)
-            return
-        }
-
-        let locationInView = convert(theEvent.locationInWindow, from: nil)
-        if isMousePoint(locationInView, in: bounds) && !isRecording {
-            _ = beginRecording()
-        } else {
-            super.mouseDown(with: theEvent)
-        }
     }
 
     open override func cancelOperation(_ sender: Any?) {
@@ -233,7 +219,8 @@ open class RecordView: NSView {
         guard isEnabled else { return false }
         guard window?.firstResponder == self else { return false }
         guard let key = Sauce.shared.key(by: Int(theEvent.keyCode)) else { return false }
-        if isRecording && validateModifiers(inputModifiers) {
+
+        if isRecording && theEvent.modifierFlags.carbonModifiers() != 0 {
             let modifiers = theEvent.modifierFlags.carbonModifiers()
             if let keyCombo = KeyCombo(key: key, carbonModifiers: modifiers) {
                 if delegate?.recordView(self, canRecordKeyCombo: keyCombo) ?? true {
@@ -264,7 +251,7 @@ open class RecordView: NSView {
 
     override open func flagsChanged(with theEvent: NSEvent) {
         guard isRecording else {
-            inputModifiers = NSEvent.ModifierFlags(rawValue: 0)
+            inputModifiers = NSEvent.ModifierFlags()
             super.flagsChanged(with: theEvent)
             return
         }
@@ -308,6 +295,7 @@ private extension RecordView {
 
 // MARK: - Recording
 public extension RecordView {
+    @discardableResult
     func beginRecording() -> Bool {
         guard isEnabled else { return false }
         guard !isRecording else { return true }
@@ -328,8 +316,8 @@ public extension RecordView {
     func endRecording() {
         guard isRecording else { return }
 
-        inputModifiers = NSEvent.ModifierFlags(rawValue: 0)
-        doubleTapModifier = NSEvent.ModifierFlags(rawValue: 0)
+        inputModifiers = NSEvent.ModifierFlags()
+        doubleTapModifier = NSEvent.ModifierFlags()
         multiModifiers = false
 
         isRecording = false
@@ -345,7 +333,7 @@ public extension RecordView {
 public extension RecordView {
     func clear() {
         keyCombo = nil
-        inputModifiers = NSEvent.ModifierFlags(rawValue: 0)
+        inputModifiers = NSEvent.ModifierFlags()
         needsDisplay = true
         didChange?(nil)
         delegate?.recordViewDidClearShortcut(self)
@@ -357,14 +345,6 @@ public extension RecordView {
     }
 }
 
-// MARK: - Modifiers
-private extension RecordView {
-    func validateModifiers(_ modifiers: NSEvent.ModifierFlags?) -> Bool {
-        guard let modifiers = modifiers else { return false }
-        return modifiers.carbonModifiers() != 0
-    }
-}
-
 // MARK: - Clear Button Mode
 public extension RecordView {
     enum ClearButtonMode {
@@ -372,16 +352,4 @@ public extension RecordView {
         case always
         case whenRecorded
     }
-}
-
-// MARK: - NSColor Extension
-// nmacOS 10.14 polyfill
-private extension NSColor {
-    static let controlAccentPolyfill: NSColor = {
-        if #available(macOS 10.14, *) {
-            return NSColor.controlAccentColor
-        } else {
-            return NSColor(red: 0.10, green: 0.47, blue: 0.98, alpha: 1)
-        }
-    }()
 }
