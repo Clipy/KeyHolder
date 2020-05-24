@@ -85,13 +85,3 @@ final class ClearButton: NSButton {
     // swiftlint:enable function_body_length
 
 }
-
-// MARK: - Color
-private extension NSColor {
-    static var clearBackgroundFill: NSColor {
-        return NSColor(red: 0.749019608, green: 0.749019608, blue: 0.749019608, alpha: 1)
-    }
-    static var clearHighlightedBackgroundFill: NSColor {
-        return NSColor(red: 0.525490196, green: 0.525490196, blue: 0.525490196, alpha: 1)
-    }
-}

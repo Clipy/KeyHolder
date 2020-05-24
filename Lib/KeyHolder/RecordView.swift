@@ -26,7 +26,7 @@ open class RecordView: NSView {
 
     // MARK: - Properties
     @IBInspectable open var backgroundColor: NSColor = .controlColor {
-        didSet { needsDisplay = true }
+        didSet { layer?.backgroundColor = backgroundColor.cgColor }
     }
     @IBInspectable open var tintColor: NSColor = .controlAccentPolyfill {
         didSet { needsDisplay = true }
@@ -40,7 +40,6 @@ open class RecordView: NSView {
     @IBInspectable open var cornerRadius: CGFloat = 0 {
         didSet {
             layer?.cornerRadius = cornerRadius
-            needsDisplay = true
             noteFocusRingMaskChanged()
         }
     }
@@ -67,8 +66,6 @@ open class RecordView: NSView {
     private let validModifiers: [NSEvent.ModifierFlags] = [.shift, .control, .option, .command]
     private let validModifiersText: [NSString] = ["⇧", "⌃", "⌥", "⌘"]
     private var inputModifiers = NSEvent.ModifierFlags()
-    private var doubleTapModifier = NSEvent.ModifierFlags()
-    private var multiModifiers = false
     private var fontSize: CGFloat {
         return bounds.height / 1.7
     }
@@ -90,7 +87,7 @@ open class RecordView: NSView {
         return true
     }
     open override var focusRingMaskBounds: NSRect {
-        return (isEnabled && window?.firstResponder == self) ? bounds : NSRect.zero
+        return (isEnabled && window?.firstResponder == self && isRecording) ? bounds : NSRect.zero
     }
 
     // MARK: - Initialize
@@ -105,6 +102,12 @@ open class RecordView: NSView {
     }
 
     private func initView() {
+        // Layer
+        wantsLayer = true
+        layer?.backgroundColor = backgroundColor.cgColor
+        layer?.borderColor = borderColor.cgColor
+        layer?.borderWidth = borderWidth
+        layer?.cornerRadius = cornerRadius
         // Clear Button
         clearButton.target = self
         clearButton.action = #selector(RecordView.clearAndEndRecording)
@@ -123,37 +126,21 @@ open class RecordView: NSView {
 
     // MARK: - Draw
     open override func drawFocusRingMask() {
-        if isEnabled && window?.firstResponder == self {
-            NSBezierPath(roundedRect: bounds, xRadius: cornerRadius, yRadius: cornerRadius).fill()
-        }
+        guard isEnabled && window?.firstResponder == self && isRecording else { return }
+        NSBezierPath(roundedRect: bounds, xRadius: cornerRadius, yRadius: cornerRadius).fill()
     }
 
     override open func draw(_ dirtyRect: NSRect) {
-        drawBackground(dirtyRect)
+        layer?.backgroundColor = backgroundColor.cgColor
+        layer?.borderColor = borderColor.cgColor
         drawModifiers(dirtyRect)
         drawKeyCode(dirtyRect)
         drawClearButton(dirtyRect)
     }
 
-    private func drawBackground(_ dirtyRect: NSRect) {
-        backgroundColor.setFill()
-        NSBezierPath(roundedRect: bounds, xRadius: cornerRadius, yRadius: cornerRadius).fill()
-
-        let rect = NSRect(x: borderWidth / 2, y: borderWidth / 2, width: bounds.width - borderWidth, height: bounds.height - borderWidth)
-        let path = NSBezierPath(roundedRect: rect, xRadius: cornerRadius, yRadius: cornerRadius)
-        path.lineWidth = borderWidth
-        borderColor.set()
-        path.stroke()
-    }
-
     private func drawModifiers(_ dirtyRect: NSRect) {
         let fontSize = self.fontSize
-        let modifiers: NSEvent.ModifierFlags
-        if let keyCombo = self.keyCombo {
-            modifiers = keyCombo.modifiers.convertSupportCocoaModifiers()
-        } else {
-            modifiers = inputModifiers
-        }
+        let modifiers = keyCombo?.modifiers.convertSupportCocoaModifiers() ?? inputModifiers
         for (i, text) in validModifiersText.enumerated() {
             let rect = NSRect(x: marginX + (fontSize * CGFloat(i)), y: marginY, width: fontSize, height: bounds.height)
             text.draw(in: rect, withAttributes: modifierTextAttributes(modifiers, checkModifier: validModifiers[i]))
@@ -165,7 +152,7 @@ open class RecordView: NSView {
         let fontSize = self.fontSize
         let minX = (fontSize * 4) + (marginX * 2)
         let width = bounds.width - minX - (marginX * 2) - clearSize
-        if width <= 0 { return }
+        guard width > 0 else { return }
         let text = (keyCombo.doubledModifiers) ? "double tap" : keyCombo.keyEquivalent.uppercased()
         text.draw(in: NSRect(x: minX, y: marginY, width: width, height: bounds.height), withAttributes: keyCodeTextAttributes())
     }
@@ -212,39 +199,33 @@ open class RecordView: NSView {
     }
 
     override open func keyDown(with theEvent: NSEvent) {
-        if !performKeyEquivalent(with: theEvent) { super.keyDown(with: theEvent) }
+        guard !performKeyEquivalent(with: theEvent) else { return }
+        super.keyDown(with: theEvent)
     }
 
     override open func performKeyEquivalent(with theEvent: NSEvent) -> Bool {
         guard isEnabled else { return false }
+        guard isRecording else { return false }
         guard window?.firstResponder == self else { return false }
         guard let key = Sauce.shared.key(by: Int(theEvent.keyCode)) else { return false }
 
-        if isRecording && theEvent.modifierFlags.carbonModifiers() != 0 {
+        if theEvent.modifierFlags.carbonModifiers() != 0 {
             let modifiers = theEvent.modifierFlags.carbonModifiers()
-            if let keyCombo = KeyCombo(key: key, carbonModifiers: modifiers) {
-                if delegate?.recordView(self, canRecordKeyCombo: keyCombo) ?? true {
-                    self.keyCombo = keyCombo
-                    didChange?(keyCombo)
-                    delegate?.recordView(self, didChangeKeyCombo: keyCombo)
-                    endRecording()
-                    return true
-                }
-            }
-            return false
-        } else if isRecording && key.isFunctionKey {
-            if let keyCombo = KeyCombo(key: key, cocoaModifiers: []) {
-                if delegate?.recordView(self, canRecordKeyCombo: keyCombo) ?? true {
-                    self.keyCombo = keyCombo
-                    didChange?(keyCombo)
-                    delegate?.recordView(self, didChangeKeyCombo: keyCombo)
-                    endRecording()
-                    return true
-                }
-            }
-            return false
-        } else if Int(theEvent.keyCode) == kVK_Space {
-            return beginRecording()
+            guard let keyCombo = KeyCombo(key: key, carbonModifiers: modifiers) else { return false }
+            guard delegate?.recordView(self, canRecordKeyCombo: keyCombo) ?? true else { return false }
+            self.keyCombo = keyCombo
+            didChange?(keyCombo)
+            delegate?.recordView(self, didChangeKeyCombo: keyCombo)
+            endRecording()
+            return true
+        } else if key.isFunctionKey {
+            guard let keyCombo = KeyCombo(key: key, cocoaModifiers: []) else { return false }
+            guard delegate?.recordView(self, canRecordKeyCombo: keyCombo) ?? true else { return false }
+            self.keyCombo = keyCombo
+            didChange?(keyCombo)
+            delegate?.recordView(self, didChangeKeyCombo: keyCombo)
+            endRecording()
+            return true
         }
         return false
     }
@@ -317,8 +298,6 @@ public extension RecordView {
         guard isRecording else { return }
 
         inputModifiers = NSEvent.ModifierFlags()
-        doubleTapModifier = NSEvent.ModifierFlags()
-        multiModifiers = false
 
         isRecording = false
         updateTrackingAreas()

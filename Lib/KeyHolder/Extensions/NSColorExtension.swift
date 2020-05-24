@@ -19,4 +19,10 @@ extension NSColor {
             return NSColor(red: 0.10, green: 0.47, blue: 0.98, alpha: 1)
         }
     }()
+    static let clearBackgroundFill: NSColor = {
+        return NSColor(red: 0.749019608, green: 0.749019608, blue: 0.749019608, alpha: 1)
+    }()
+    static let clearHighlightedBackgroundFill: NSColor = {
+        return NSColor(red: 0.525490196, green: 0.525490196, blue: 0.525490196, alpha: 1)
+    }()
 }
