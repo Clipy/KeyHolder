@@ -9,5 +9,5 @@ Pod::Spec.new do |s|
   s.platform     = :osx, '10.10'
   s.source_files = 'Lib/KeyHolder/**/*.swift'
   s.frameworks   = 'Carbon', 'Cocoa'
-  s.dependency 'Magnet', '~> 3.0.4'
+  s.dependency 'Magnet', '~> 3.2'
 end
