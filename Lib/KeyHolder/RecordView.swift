@@ -16,8 +16,7 @@ import Sauce
 public protocol RecordViewDelegate: AnyObject {
     func recordViewShouldBeginRecording(_ recordView: RecordView) -> Bool
     func recordView(_ recordView: RecordView, canRecordKeyCombo keyCombo: KeyCombo) -> Bool
-    func recordViewDidClearShortcut(_ recordView: RecordView)
-    func recordView(_ recordView: RecordView, didChangeKeyCombo keyCombo: KeyCombo)
+    func recordView(_ recordView: RecordView, didChangeKeyCombo keyCombo: KeyCombo?)
     func recordViewDidEndRecording(_ recordView: RecordView)
 }
 
@@ -78,6 +77,9 @@ open class RecordView: NSView {
     private var marginX: CGFloat {
         return marginY * 1.5
     }
+    private var isFirstResponder: Bool {
+        return (isEnabled && window?.firstResponder == self && isRecording)
+    }
 
     // MARK: - Override Properties
     open override var isOpaque: Bool {
@@ -87,7 +89,7 @@ open class RecordView: NSView {
         return true
     }
     open override var focusRingMaskBounds: NSRect {
-        return (isEnabled && window?.firstResponder == self && isRecording) ? bounds : NSRect.zero
+        return (isFirstResponder) ? bounds : NSRect.zero
     }
 
     // MARK: - Initialize
@@ -115,6 +117,7 @@ open class RecordView: NSView {
         // Double Tap
         modifierEventHandler.doubleTapped = { [weak self] modifierFlags in
             guard let strongSelf = self else { return }
+            guard strongSelf.isFirstResponder else { return }
             guard let keyCombo = KeyCombo(doubledCocoaModifiers: modifierFlags) else { return }
             guard self?.delegate?.recordView(strongSelf, canRecordKeyCombo: keyCombo) ?? true else { return }
             self?.keyCombo = keyCombo
@@ -126,7 +129,7 @@ open class RecordView: NSView {
 
     // MARK: - Draw
     open override func drawFocusRingMask() {
-        guard isEnabled && window?.firstResponder == self && isRecording else { return }
+        guard isFirstResponder else { return }
         NSBezierPath(roundedRect: bounds, xRadius: cornerRadius, yRadius: cornerRadius).fill()
     }
 
@@ -186,11 +189,11 @@ open class RecordView: NSView {
     }
 
     open override func becomeFirstResponder() -> Bool {
-        return beginRecording()
+        return focusView()
     }
 
     override open func resignFirstResponder() -> Bool {
-        endRecording()
+        unfocusView()
         return super.resignFirstResponder()
     }
 
@@ -204,9 +207,7 @@ open class RecordView: NSView {
     }
 
     override open func performKeyEquivalent(with theEvent: NSEvent) -> Bool {
-        guard isEnabled else { return false }
-        guard isRecording else { return false }
-        guard window?.firstResponder == self else { return false }
+        guard isFirstResponder else { return false }
         guard let key = Sauce.shared.key(by: Int(theEvent.keyCode)) else { return false }
 
         if theEvent.modifierFlags.carbonModifiers() != 0 {
@@ -231,8 +232,9 @@ open class RecordView: NSView {
     }
 
     override open func flagsChanged(with theEvent: NSEvent) {
-        guard isRecording else {
+        guard isFirstResponder else {
             inputModifiers = NSEvent.ModifierFlags()
+            needsDisplay = true
             super.flagsChanged(with: theEvent)
             return
         }
@@ -268,42 +270,52 @@ private extension RecordView {
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.lineBreakMode = .byTruncatingTail
         paragraphStyle.baseWritingDirection = .leftToRight
+        let textColor: NSColor
+        if !isEnabled {
+            textColor = .disabledControlTextColor
+        } else {
+            textColor = tintColor
+        }
         return [.font: NSFont.systemFont(ofSize: floor(fontSize)),
-                .foregroundColor: tintColor,
+                .foregroundColor: textColor,
                 .paragraphStyle: paragraphStyle]
     }
 }
 
 // MARK: - Recording
-public extension RecordView {
+extension RecordView {
     @discardableResult
-    func beginRecording() -> Bool {
+    public func beginRecording() -> Bool {
+        guard let window = self.window else { return false }
         guard isEnabled else { return false }
-        guard !isRecording else { return true }
-
-        needsDisplay = true
-
+        guard window.firstResponder != self || !isRecording else { return true }
+        return window.makeFirstResponder(self)
+    }
+    
+    @discardableResult
+    public func endRecording() -> Bool {
+        guard let window = self.window else { return true }
+        guard window.firstResponder == self || isRecording else { return true }
+        return window.makeFirstResponder(nil)
+    }
+    
+    private func focusView() -> Bool {
+        guard isEnabled else { return false }
         if let delegate = delegate, !delegate.recordViewShouldBeginRecording(self) {
             NSSound.beep()
             return false
         }
-
         isRecording = true
+        needsDisplay = true
         updateTrackingAreas()
-
         return true
     }
-
-    func endRecording() {
-        guard isRecording else { return }
-
+    
+    private func unfocusView() {
         inputModifiers = NSEvent.ModifierFlags()
-
         isRecording = false
         updateTrackingAreas()
         needsDisplay = true
-
-        if window?.firstResponder == self && !canBecomeKeyView { window?.makeFirstResponder(nil) }
         delegate?.recordViewDidEndRecording(self)
     }
 }
@@ -315,7 +327,7 @@ public extension RecordView {
         inputModifiers = NSEvent.ModifierFlags()
         needsDisplay = true
         didChange?(nil)
-        delegate?.recordViewDidClearShortcut(self)
+        delegate?.recordView(self, didChangeKeyCombo: nil)
     }
 
     @objc func clearAndEndRecording() {
