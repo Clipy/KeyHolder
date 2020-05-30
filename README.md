@@ -37,8 +37,7 @@ Some delegate methods
 ```swift
 func recordViewShouldBeginRecording(_ recordView: RecordView) -> Bool
 func recordView(_ recordView: RecordView, canRecordShortcut keyCombo: KeyCombo) -> Bool
-func recordViewDidClearShortcut(_ recordView: RecordView)
-func recordView(_ recordView: RecordView, didChangeKeyCombo keyCombo: KeyCombo)
+func recordView(_ recordView: RecordView, didChangeKeyCombo keyCombo: KeyCombo?)
 func recordViewDidEndRecording(_ recordView: RecordView)
 ```
 
