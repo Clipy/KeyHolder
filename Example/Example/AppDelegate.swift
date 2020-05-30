@@ -23,7 +23,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         recordView.delegate = self
         recordView.clearButtonMode = .whenRecorded
         restoreKeyCombo()
-        window?.makeFirstResponder(recordView)
+        recordView.beginRecording()
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {
@@ -38,7 +38,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         guard let data = UserDefaults.standard.data(forKey: "keyCombo") else { return }
         guard let keyCombo = try? JSONDecoder().decode(KeyCombo.self, from: data) else { return }
         recordView.keyCombo = keyCombo
-        let hotKey = HotKey(identifier: "KeyHolderExample", keyCombo: keyCombo, target: self, action: #selector(AppDelegate.hotkeyCalled))
+        let hotKey = HotKey(identifier: "KeyHolderExample",
+                            keyCombo: keyCombo,
+                            target: self,
+                            action: #selector(AppDelegate.hotkeyCalled))
         hotKey.register()
     }
 
@@ -60,20 +63,18 @@ extension AppDelegate: RecordViewDelegate {
         return true
     }
 
-    func recordViewDidClearShortcut(_ recordView: RecordView) {
-        print("clear shortcut")
-        storeKeyCombo(with: nil)
-        HotKeyCenter.shared.unregisterHotKey(with: "KeyHolderExample")
+    func recordView(_ recordView: RecordView, didChangeKeyCombo keyCombo: KeyCombo?) {
+        storeKeyCombo(with: keyCombo)
+        HotKeyCenter.shared.unregisterAll()
+        guard let keyCombo = keyCombo else { return }
+        let hotKey = HotKey(identifier: "KeyHolderExample",
+                            keyCombo: keyCombo,
+                            target: self,
+                            action: #selector(AppDelegate.hotkeyCalled))
+        hotKey.register()
     }
 
     func recordViewDidEndRecording(_ recordView: RecordView) {
         print("end recording")
-    }
-
-    func recordView(_ recordView: RecordView, didChangeKeyCombo keyCombo: KeyCombo) {
-        HotKeyCenter.shared.unregisterHotKey(with: "KeyHolderExample")
-        storeKeyCombo(with: keyCombo)
-        let hotKey = HotKey(identifier: "KeyHolderExample", keyCombo: keyCombo, target: self, action: #selector(AppDelegate.hotkeyCalled))
-        hotKey.register()
     }
 }
