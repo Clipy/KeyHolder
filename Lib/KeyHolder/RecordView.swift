@@ -291,14 +291,14 @@ extension RecordView {
         guard window.firstResponder != self || !isRecording else { return true }
         return window.makeFirstResponder(self)
     }
-    
+
     @discardableResult
     public func endRecording() -> Bool {
         guard let window = self.window else { return true }
         guard window.firstResponder == self || isRecording else { return true }
         return window.makeFirstResponder(nil)
     }
-    
+
     private func focusView() -> Bool {
         guard isEnabled else { return false }
         if let delegate = delegate, !delegate.recordViewShouldBeginRecording(self) {
@@ -310,7 +310,7 @@ extension RecordView {
         updateTrackingAreas()
         return true
     }
-    
+
     private func unfocusView() {
         inputModifiers = NSEvent.ModifierFlags()
         isRecording = false
