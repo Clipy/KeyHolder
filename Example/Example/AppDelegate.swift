@@ -23,6 +23,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         recordView.delegate = self
         recordView.clearButtonMode = .whenRecorded
         restoreKeyCombo()
+        window?.makeFirstResponder(recordView)
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {
