@@ -1,0 +1,16 @@
+name: Swift-Build
+on: [push, pull_request]
+jobs:
+  test:
+    runs-on: macos-latest
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        submodules: recursive
+
+    - name: Xcode select
+      run: sudo xcode-select -s /Applications/Xcode_11.4.app
+
+    - name: Build and Test
+      run: |
+        swift test
