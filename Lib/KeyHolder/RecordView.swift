@@ -24,10 +24,10 @@ public protocol RecordViewDelegate: AnyObject {
 open class RecordView: NSView {
 
     // MARK: - Properties
-    @IBInspectable open var backgroundColor: NSColor = .controlColor {
+    @IBInspectable open var backgroundColor: NSColor = .textBackgroundColor {
         didSet { layer?.backgroundColor = backgroundColor.cgColor }
     }
-    @IBInspectable open var tintColor: NSColor = .controlAccentPolyfill {
+    @IBInspectable open var tintColor: NSColor = .systemBlue {
         didSet { needsDisplay = true }
     }
     @IBInspectable open var borderColor: NSColor = .controlColor {
