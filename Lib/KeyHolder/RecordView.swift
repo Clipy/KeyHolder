@@ -143,7 +143,7 @@ open class RecordView: NSView {
 
     private func drawModifiers(_ dirtyRect: NSRect) {
         let fontSize = self.fontSize
-        let modifiers = keyCombo?.modifiers.convertSupportCocoaModifiers() ?? inputModifiers
+        let modifiers = keyCombo.map { NSEvent.ModifierFlags(carbonModifiers: $0.modifiers) } ?? inputModifiers
         for (i, text) in validModifiersText.enumerated() {
             let rect = NSRect(x: marginX + (fontSize * CGFloat(i)), y: marginY, width: fontSize, height: bounds.height)
             text.draw(in: rect, withAttributes: modifierTextAttributes(modifiers, checkModifier: validModifiers[i]))
@@ -208,7 +208,7 @@ open class RecordView: NSView {
 
     override open func performKeyEquivalent(with theEvent: NSEvent) -> Bool {
         guard isFirstResponder else { return false }
-        guard let key = Sauce.shared.key(by: Int(theEvent.keyCode)) else { return false }
+        guard let key = Sauce.shared.key(for: Int(theEvent.keyCode)) else { return false }
 
         if theEvent.modifierFlags.carbonModifiers() != 0 {
             let modifiers = theEvent.modifierFlags.carbonModifiers()
