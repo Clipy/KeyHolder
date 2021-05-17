@@ -13,7 +13,7 @@ let package = Package(
             targets: ["KeyHolder"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/Clipy/Magnet", from: "3.2.0"),
+        .package(url: "https://github.com/Clipy/Magnet", .upToNextMinor(from: "3.3.0")),
     ],
     targets: [
         .target(

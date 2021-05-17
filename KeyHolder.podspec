@@ -10,5 +10,5 @@ Pod::Spec.new do |s|
   s.source_files = 'Lib/KeyHolder/**/*.swift'
   s.swift_version = '5.0'
   s.frameworks   = 'Carbon', 'Cocoa'
-  s.dependency 'Magnet', '~> 3.2'
+  s.dependency 'Magnet', '~> 3.3.0'
 end
