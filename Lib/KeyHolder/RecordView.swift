@@ -125,6 +125,11 @@ open class RecordView: NSView {
             self?.delegate?.recordView(strongSelf, didChangeKeyCombo: keyCombo)
             self?.endRecording()
         }
+
+        NSEvent.addLocalMonitorForEvents(matching: .keyDown) {
+            self.keyDown(with: $0)
+            return $0
+        }
     }
 
     // MARK: - Draw
@@ -156,7 +161,19 @@ open class RecordView: NSView {
         let minX = (fontSize * 4) + (marginX * 2)
         let width = bounds.width - minX - (marginX * 2) - clearSize
         guard width > 0 else { return }
-        let text = (keyCombo.doubledModifiers) ? "double tap" : keyCombo.keyEquivalent.uppercased()
+
+        // TODO kVK_JIS_Eisu kVK_JIS_Kana
+        let characters: String
+        switch keyCombo.QWERTYKeyCode {
+        case kVK_JIS_Eisu:
+            characters = "英数"
+        case kVK_JIS_Kana:
+            characters = "かな"
+        default:
+            characters = keyCombo.characters
+        }
+        let text = (keyCombo.doubledModifiers) ? "double tap" : characters
+
         text.draw(in: NSRect(x: minX, y: marginY, width: width, height: bounds.height), withAttributes: keyCodeTextAttributes())
     }
 
