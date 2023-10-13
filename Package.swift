@@ -5,7 +5,7 @@ import PackageDescription
 let package = Package(
     name: "KeyHolder",
     platforms: [
-      .macOS(.v10_10)
+      .macOS(.v10_13)
     ],
     products: [
         .library(
@@ -13,7 +13,7 @@ let package = Package(
             targets: ["KeyHolder"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/Clipy/Magnet", .upToNextMinor(from: "3.3.0")),
+        .package(url: "https://github.com/Clipy/Magnet", .upToNextMinor(from: "3.4.0")),
     ],
     targets: [
         .target(
