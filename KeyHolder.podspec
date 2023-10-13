@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "KeyHolder"
-  s.version      = "4.1.0"
+  s.version      = "4.2.0"
   s.summary      = "Record shortcuts in macOS, like Alfred app."
   s.license      = { :type => 'MIT', :file => 'LICENSE' }
   s.homepage     = "https://github.com/Clipy/KeyHolder"
