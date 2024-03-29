@@ -7,7 +7,7 @@
 //
 //  Copyright © 2015-2020 Clipy Project.
 //
-
+#if os(macOS)
 import Cocoa
 import Carbon
 import Magnet
@@ -344,3 +344,4 @@ public extension RecordView {
         case whenRecorded
     }
 }
+#endif

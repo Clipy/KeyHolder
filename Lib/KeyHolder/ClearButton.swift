@@ -7,7 +7,7 @@
 //
 //  Copyright © 2015-2020 Clipy Project.
 //
-
+#if os(macOS)
 import Cocoa
 
 final class ClearButton: NSButton {
@@ -85,3 +85,4 @@ final class ClearButton: NSButton {
     // swiftlint:enable function_body_length
 
 }
+#endif

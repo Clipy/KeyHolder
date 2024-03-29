@@ -7,7 +7,7 @@
 //
 //  Copyright © 2015-2020 Clipy Project.
 //
-
+#if os(macOS)
 import AppKit
 
 extension NSColor {
@@ -18,3 +18,4 @@ extension NSColor {
         return NSColor(red: 0.525490196, green: 0.525490196, blue: 0.525490196, alpha: 1)
     }()
 }
+#endif
