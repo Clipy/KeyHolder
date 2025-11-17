@@ -156,7 +156,7 @@ open class RecordView: NSView {
         let minX = (fontSize * 4) + (marginX * 2)
         let width = bounds.width - minX - (marginX * 2) - clearSize
         guard width > 0 else { return }
-        let text = (keyCombo.doubledModifiers) ? "double tap" : keyCombo.keyEquivalent.uppercased()
+        let text = keyCombo.doubledModifiers ? NSLocalizedString("Double Tap", bundle: .module, comment: "Double Tap") : keyCombo.keyEquivalent.uppercased()
         text.draw(in: NSRect(x: minX, y: marginY, width: width, height: bounds.height), withAttributes: keyCodeTextAttributes())
     }
 
