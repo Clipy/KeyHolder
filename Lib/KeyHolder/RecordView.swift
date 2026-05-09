@@ -208,11 +208,11 @@ open class RecordView: NSView {
 
     override open func performKeyEquivalent(with theEvent: NSEvent) -> Bool {
         guard isFirstResponder else { return false }
-        guard let key = Sauce.shared.key(for: Int(theEvent.keyCode)) else { return false }
+        let modifiers = theEvent.modifierFlags.carbonModifiers()
+        guard let key = Sauce.shared.key(for: Int(theEvent.keyCode), carbonModifiers: modifiers) else { return false }
 
-        if theEvent.modifierFlags.carbonModifiers() != 0 {
-            let modifiers = theEvent.modifierFlags.carbonModifiers()
-            guard let keyCombo = KeyCombo(key: key, carbonModifiers: modifiers) else { return false }
+        if modifiers != 0 {
+            let keyCombo = KeyCombo(key: key, carbonModifiers: modifiers)
             guard delegate?.recordView(self, canRecordKeyCombo: keyCombo) ?? true else { return false }
             self.keyCombo = keyCombo
             didChange?(keyCombo)
@@ -220,7 +220,7 @@ open class RecordView: NSView {
             endRecording()
             return true
         } else if key.isFunctionKey {
-            guard let keyCombo = KeyCombo(key: key, cocoaModifiers: []) else { return false }
+            let keyCombo = KeyCombo(key: key, cocoaModifiers: [])
             guard delegate?.recordView(self, canRecordKeyCombo: keyCombo) ?? true else { return false }
             self.keyCombo = keyCombo
             didChange?(keyCombo)

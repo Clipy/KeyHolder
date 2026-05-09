@@ -1,11 +1,10 @@
-// swift-tools-version:5.1
-// The swift-tools-version declares the minimum version of Swift required to build this package.
+// swift-tools-version:5.9
 import PackageDescription
 
 let package = Package(
     name: "KeyHolder",
     platforms: [
-      .macOS(.v10_13)
+      .macOS(.v11)
     ],
     products: [
         .library(
@@ -13,17 +12,21 @@ let package = Package(
             targets: ["KeyHolder"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/Clipy/Magnet", .upToNextMinor(from: "3.4.0")),
+        .package(url: "https://github.com/Clipy/Magnet", .upToNextMinor(from: "3.5.0")),
     ],
     targets: [
         .target(
             name: "KeyHolder",
             dependencies: ["Magnet"],
-            path: "Lib/KeyHolder"),
+            path: "Lib/KeyHolder",
+            exclude: ["Info.plist"]
+        ),
         .testTarget(
             name: "KeyHolderTests",
             dependencies: ["KeyHolder"],
-            path: "Lib/KeyHolderTests"),
+            path: "Lib/KeyHolderTests",
+            exclude: ["Info.plist"]
+        ),
     ],
     swiftLanguageVersions: [.v5]
 )
