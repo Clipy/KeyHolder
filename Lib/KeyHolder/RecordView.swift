@@ -60,7 +60,16 @@ open class RecordView: NSView {
         }
     }
 
-    private let clearButton = ClearButton()
+    private let clearButton: NSButton = {
+        let button = NSButton()
+        button.isBordered = false
+        button.imagePosition = .imageOnly
+        button.imageScaling = .scaleProportionallyUpOrDown
+        button.focusRingType = .none
+        button.contentTintColor = .tertiaryLabelColor
+        button.image = NSImage(systemSymbolName: "xmark.circle.fill", accessibilityDescription: "clear")
+        return button
+    }()
     private let modifierEventHandler = ModifierEventHandler()
     private let validModifiers: [NSEvent.ModifierFlags] = [.shift, .control, .option, .command]
     private let validModifiersText: [NSString] = ["⇧", "⌃", "⌥", "⌘"]
@@ -165,6 +174,7 @@ open class RecordView: NSView {
         let x = bounds.width - clearSize - marginX
         let y = (bounds.height - clearSize) / 2
         clearButton.frame = NSRect(x: x, y: y, width: clearSize, height: clearSize)
+        clearButton.font = .systemFont(ofSize: floor(clearSize))
         switch clearButtonMode {
         case .always:
             clearButton.isHidden = false
