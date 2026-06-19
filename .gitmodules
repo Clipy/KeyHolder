@@ -1,6 +1,0 @@
-[submodule "Carthage/Checkouts/Magnet"]
-	path = Carthage/Checkouts/Magnet
-	url = https://github.com/Clipy/Magnet.git
-[submodule "Carthage/Checkouts/Sauce"]
-	path = Carthage/Checkouts/Sauce
-	url = https://github.com/Clipy/Sauce.git
