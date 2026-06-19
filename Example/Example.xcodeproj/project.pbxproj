@@ -3,40 +3,15 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 60;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C5B100032FE4E100003D5BD6 /* KeyHolder in Frameworks */ = {isa = PBXBuildFile; productRef = C5B100022FE4E100003D5BD6 /* KeyHolder */; };
 		312C0FC51D13AA0300973348 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312C0FC41D13AA0300973348 /* AppDelegate.swift */; };
 		312C0FC71D13AA0300973348 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 312C0FC61D13AA0300973348 /* Assets.xcassets */; };
 		312C0FCA1D13AA0300973348 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 312C0FC81D13AA0300973348 /* MainMenu.xib */; };
-		31FAEB771D13EB85008A6D6E /* KeyHolder.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 31FAEB711D13EB25008A6D6E /* KeyHolder.framework */; };
-		31FAEB781D13EB85008A6D6E /* KeyHolder.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 31FAEB711D13EB25008A6D6E /* KeyHolder.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		31FAEB701D13EB25008A6D6E /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 31FAEB6B1D13EB25008A6D6E /* KeyHolder.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 312C0FDB1D13AA1F00973348;
-			remoteInfo = KeyHolder;
-		};
-		31FAEB721D13EB25008A6D6E /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 31FAEB6B1D13EB25008A6D6E /* KeyHolder.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 312C0FE51D13AA1F00973348;
-			remoteInfo = KeyHolderTests;
-		};
-		31FAEB791D13EB85008A6D6E /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 31FAEB6B1D13EB25008A6D6E /* KeyHolder.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 312C0FDA1D13AA1F00973348;
-			remoteInfo = KeyHolder;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		312C10021D13AA9700973348 /* Embed Frameworks */ = {
@@ -45,7 +20,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				31FAEB781D13EB85008A6D6E /* KeyHolder.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -58,7 +32,6 @@
 		312C0FC61D13AA0300973348 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		312C0FC91D13AA0300973348 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		312C0FCB1D13AA0300973348 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		31FAEB6B1D13EB25008A6D6E /* KeyHolder.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = KeyHolder.xcodeproj; path = ../Lib/KeyHolder.xcodeproj; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,7 +39,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				31FAEB771D13EB85008A6D6E /* KeyHolder.framework in Frameworks */,
+				C5B100032FE4E100003D5BD6 /* KeyHolder in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -78,7 +51,6 @@
 			children = (
 				312C0FC31D13AA0300973348 /* Example */,
 				312C0FC21D13AA0300973348 /* Products */,
-				31FAEB6B1D13EB25008A6D6E /* KeyHolder.xcodeproj */,
 			);
 			sourceTree = "<group>";
 		};
@@ -101,15 +73,6 @@
 			path = Example;
 			sourceTree = "<group>";
 		};
-		31FAEB6C1D13EB25008A6D6E /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				31FAEB711D13EB25008A6D6E /* KeyHolder.framework */,
-				31FAEB731D13EB25008A6D6E /* KeyHolderTests.xctest */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -125,9 +88,11 @@
 			buildRules = (
 			);
 			dependencies = (
-				31FAEB7A1D13EB85008A6D6E /* PBXTargetDependency */,
 			);
 			name = Example;
+			packageProductDependencies = (
+				C5B100022FE4E100003D5BD6 /* KeyHolder */,
+			);
 			productName = Example;
 			productReference = 312C0FC11D13AA0300973348 /* Example.app */;
 			productType = "com.apple.product-type.application";
@@ -158,37 +123,17 @@
 				Base,
 			);
 			mainGroup = 312C0FB81D13AA0300973348;
+			packageReferences = (
+				C5B100012FE4E100003D5BD6 /* XCLocalSwiftPackageReference ".." */,
+			);
 			productRefGroup = 312C0FC21D13AA0300973348 /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = 31FAEB6C1D13EB25008A6D6E /* Products */;
-					ProjectRef = 31FAEB6B1D13EB25008A6D6E /* KeyHolder.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				312C0FC01D13AA0300973348 /* Example */,
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		31FAEB711D13EB25008A6D6E /* KeyHolder.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = KeyHolder.framework;
-			remoteRef = 31FAEB701D13EB25008A6D6E /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		31FAEB731D13EB25008A6D6E /* KeyHolderTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = KeyHolderTests.xctest;
-			remoteRef = 31FAEB721D13EB25008A6D6E /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		312C0FBF1D13AA0300973348 /* Resources */ = {
@@ -212,14 +157,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		31FAEB7A1D13EB85008A6D6E /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = KeyHolder;
-			targetProxy = 31FAEB791D13EB85008A6D6E /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		312C0FC81D13AA0300973348 /* MainMenu.xib */ = {
@@ -390,6 +327,20 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		C5B100012FE4E100003D5BD6 /* XCLocalSwiftPackageReference ".." */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = ..;
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		C5B100022FE4E100003D5BD6 /* KeyHolder */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = KeyHolder;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 312C0FB91D13AA0300973348 /* Project object */;
 }

@@ -1,0 +1,24 @@
+{
+  "originHash" : "f2260e6e2806427927238215a9800d8b2c62a82c8622b73a2ff366ba17a853bc",
+  "pins" : [
+    {
+      "identity" : "magnet",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Clipy/Magnet",
+      "state" : {
+        "revision" : "c721032f386a6664a234e04b98cb68823865369a",
+        "version" : "3.5.0"
+      }
+    },
+    {
+      "identity" : "sauce",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Clipy/Sauce",
+      "state" : {
+        "revision" : "c9ebdcfddb4b94da5b9a6ebd113ab385edda88c1",
+        "version" : "2.5.0"
+      }
+    }
+  ],
+  "version" : 3
+}

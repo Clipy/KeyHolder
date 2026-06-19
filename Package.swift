@@ -13,19 +13,16 @@ let package = Package(
     ],
     dependencies: [
         .package(url: "https://github.com/Clipy/Magnet", .upToNextMinor(from: "3.5.0")),
+        .package(url: "https://github.com/Clipy/Sauce", .upToNextMinor(from: "2.5.0")),
     ],
     targets: [
         .target(
             name: "KeyHolder",
-            dependencies: ["Magnet"],
-            path: "Lib/KeyHolder",
-            exclude: ["Info.plist"]
+            dependencies: ["Magnet", "Sauce"]
         ),
         .testTarget(
             name: "KeyHolderTests",
-            dependencies: ["KeyHolder"],
-            path: "Lib/KeyHolderTests",
-            exclude: ["Info.plist"]
+            dependencies: ["KeyHolder"]
         ),
     ],
     swiftLanguageVersions: [.v5]

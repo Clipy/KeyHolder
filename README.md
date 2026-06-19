@@ -1,5 +1,5 @@
 # KeyHolder
-![CI](https://github.com/Clipy/KeyHolder/workflows/Xcode-Build/badge.svg)
+![CI](https://github.com/Clipy/KeyHolder/workflows/Swift-Build/badge.svg)
 [![Release version](https://img.shields.io/github/release/Clipy/KeyHolder.svg)](https://github.com/Clipy/KeyHolder/releases/latest)
 [![License: MIT](https://img.shields.io/github/license/Clipy/KeyHolder.svg)](https://github.com/Clipy/KeyHolder/blob/master/LICENSE)
 
@@ -38,10 +38,3 @@ recordView.didChange = { keyCombo in
 The source code is dependent on hotkey library.
 - [Magnet](https://github.com/Clipy/Magnet)
 - [Sauce](https://github.com/Clipy/Sauce)
-
-## How to Build
-1. Move to the project root directory
-2. Install dependency library with `carthage` or `git submodule`
-3. `carthage checkout --use-submodules` or `git submodule update --init --recursive`
-4. Open `KeyHolder.xcworkspace` on Xcode.
-5. build.
